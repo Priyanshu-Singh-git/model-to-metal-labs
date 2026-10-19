@@ -428,7 +428,15 @@
     <!-- Studio / founder -->
     <section class="section" id="about">
       <div class="container about">
-        <div class="about-card reveal">
+        <!--
+          TEAM — one <article class="member"> per person.
+          With one member the card sits beside the studio text. Add a second
+          member and the layout switches on its own to a team grid below the text.
+          To add someone: copy the template at the bottom of this list, uncomment
+          it, and put their photo in assets/img/ (640×800 portrait, WebP + JPG).
+        -->
+        <div class="team" id="team">
+        <article class="about-card member reveal">
           <figure class="portrait">
             <picture>
               <source srcset="assets/img/priyanshu.webp" type="image/webp" />
@@ -448,6 +456,28 @@
             <a href="https://github.com/Priyanshu-Singh-git" target="_blank" rel="noopener">GitHub ↗</a>
             <a href="https://www.upwork.com/freelancers/~0172854895b0a49f5f" target="_blank" rel="noopener">Upwork ↗</a>
           </div>
+        </article>
+
+        <!-- MEMBER TEMPLATE (hidden until uncommented)
+        <article class="about-card member reveal">
+          <figure class="portrait">
+            <picture>
+              <source srcset="assets/img/FIRSTNAME.webp" type="image/webp" />
+              <img src="assets/img/FIRSTNAME.jpg" alt="Portrait of FULL NAME" width="640" height="800" loading="lazy" decoding="async" />
+            </picture>
+          </figure>
+          <p class="about-name">FULL NAME</p>
+          <p class="about-role">ROLE, e.g. Computer Vision Engineer</p>
+          <ul class="about-facts">
+            <li><span>Focus</span>WHAT THEY WORK ON</li>
+            <li><span>Background</span>ONE LINE OF EXPERIENCE</li>
+          </ul>
+          <div class="about-links">
+            <a href="LINKEDIN URL" target="_blank" rel="noopener">LinkedIn ↗</a>
+            <a href="GITHUB URL" target="_blank" rel="noopener">GitHub ↗</a>
+          </div>
+        </article>
+        -->
         </div>
 
         <div class="about-copy reveal">

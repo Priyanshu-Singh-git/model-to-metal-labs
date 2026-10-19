@@ -872,6 +872,16 @@ em {
   align-items: start;
 }
 .about-card { padding: 32px; position: sticky; top: 100px; }
+
+/* Team: a single founder card sits beside the copy. Two or more members
+   switch to a full-width grid placed under the studio text. */
+.team { display: grid; gap: 18px; }
+.about:has(.member + .member) { grid-template-columns: 1fr; }
+.about:has(.member + .member) .about-copy { order: -1; }
+.about:has(.member + .member) .team {
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+}
+.about:has(.member + .member) .about-card { position: static; max-width: none; }
 .portrait {
   position: relative;
   margin: -14px -14px 24px;
@@ -918,7 +928,8 @@ em {
   color: var(--muted);
   margin-bottom: 2px;
 }
-.about-links { display: flex; gap: 18px; margin-top: 20px; font-size: 14px; }
+.about-links { display: flex; flex-wrap: wrap; gap: 8px 18px; margin-top: 20px; font-size: 14px; }
+.about-links a { white-space: nowrap; }
 .about-links a { color: var(--accent); }
 
 .about-copy h2 { margin-bottom: 26px; }

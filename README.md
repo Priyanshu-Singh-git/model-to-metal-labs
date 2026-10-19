@@ -21,6 +21,13 @@ Open `assets/js/main.js` and edit `CONFIG` at the top:
 Photos live in `assets/img/` (portrait 640×800 and a 160×160 avatar, WebP + JPG). To change the
 photo, replace those four files with the same names and sizes.
 
+## Adding team members (later)
+
+In `index.html`, find the `TEAM` comment in the Studio section. Copy the commented
+`MEMBER TEMPLATE` block, uncomment it, fill in name / role / links, and add the person's
+photo to `assets/img/`. With two or more members the section switches automatically
+from "founder beside text" to a team grid. No CSS changes needed.
+
 ## Preview locally
 
 Open `index.html` in a browser, or run `python -m http.server 8000` in this folder and visit
