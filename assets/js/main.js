@@ -134,15 +134,15 @@ document.querySelectorAll(".service").forEach((card) => {
         const dx = a.x - b.x, dy = a.y - b.y;
         const d2 = dx * dx + dy * dy;
         if (d2 < LINK * LINK) {
-          const o = (1 - Math.sqrt(d2) / LINK) * 0.12;
-          ctx.strokeStyle = `rgba(143,216,200,${o})`;
+          const o = (1 - Math.sqrt(d2) / LINK) * 0.16;
+          ctx.strokeStyle = `rgba(14,120,110,${o})`;
           ctx.lineWidth = 0.6;
           ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke();
         }
       }
       const pd = Math.hypot(a.x - pointer.x, a.y - pointer.y);
       const glow = pd < 180 ? (1 - pd / 180) : 0;
-      ctx.fillStyle = `rgba(200,230,225,${0.25 + glow * 0.5})`;
+      ctx.fillStyle = `rgba(30,90,110,${0.22 + glow * 0.45})`;
       ctx.beginPath(); ctx.arc(a.x, a.y, a.r + glow * 1.2, 0, Math.PI * 2); ctx.fill();
     }
   };
