@@ -261,12 +261,13 @@
             <p>Parallel vision models on one low-power chip, turning frames into graded safety events with on-device video clips and logs.</p>
 
             <details class="more">
-              <summary>Engineering challenges solved</summary>
+              <summary>Engineering highlights</summary>
               <ul class="ticks">
-              <li>INT8 quantization drift that silently cut accuracy after conversion</li>
-              <li>Tensor layout mismatches (NCHW vs NHWC) between training and the NPU runtime</li>
-              <li>Colour-order and coordinate re-projection errors in landmark post-processing</li>
-              <li>Holding real-time frame rates with several models sharing one device</li>
+              <li><strong>Accuracy-preserving compression:</strong> a calibrated low-precision pipeline that keeps on-device accuracy aligned with the full-precision model</li>
+              <li><strong>Multi-model real-time scheduling:</strong> several concurrent networks sharing one low-power accelerator at stable frame rates</li>
+              <li><strong>Train-to-device parity:</strong> numerical verification across the whole pipeline, so deployed outputs match what was validated in training</li>
+              <li><strong>Temporal event reasoning:</strong> sequence modeling that turns noisy per-frame signals into reliable, severity-graded alerts</li>
+              <li><strong>Offline-first reliability:</strong> self-contained capture, logging and evidence retention with zero cloud dependency</li>
               </ul>
             </details>
           </div>

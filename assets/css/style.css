@@ -878,6 +878,7 @@ em {
 .more[open] > :not(summary) { animation: unfold .5s var(--ease); }
 @keyframes unfold { from { opacity: 0; transform: translateY(-6px); } }
 .more .ticks { margin-top: 18px; }
+.ticks strong { color: var(--text); font-weight: 500; }
 .more-block { margin-top: 30px; }
 
 .more-work {
