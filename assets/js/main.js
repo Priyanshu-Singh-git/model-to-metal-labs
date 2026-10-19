@@ -111,18 +111,18 @@ document.querySelectorAll(".service").forEach((card) => {
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     // denser, more visible mesh on desktop; lighter on small screens
     const desktop = w >= 1024;
-    const count = Math.round(desktop ? Math.min(150, (w * h) / 9000) : Math.min(60, (w * h) / 16000));
+    const count = Math.round(desktop ? Math.min(110, (w * h) / 12500) : Math.min(45, (w * h) / 20000));
     nodes = Array.from({ length: count }, () => ({
       x: Math.random() * w,
       y: Math.random() * h,
       vx: (Math.random() - 0.5) * 0.12,
       vy: (Math.random() - 0.5) * 0.12,
-      r: Math.random() * 1.4 + (desktop ? 0.9 : 0.6),
+      r: Math.random() * 1.3 + (desktop ? 0.7 : 0.5),
     }));
   };
 
   const desktopLines = window.innerWidth >= 1024;
-  const LINK = desktopLines ? 175 : 140;
+  const LINK = desktopLines ? 165 : 135;
   const draw = () => {
     ctx.clearRect(0, 0, w, h);
     for (const n of nodes) {
@@ -137,15 +137,15 @@ document.querySelectorAll(".service").forEach((card) => {
         const dx = a.x - b.x, dy = a.y - b.y;
         const d2 = dx * dx + dy * dy;
         if (d2 < LINK * LINK) {
-          const o = (1 - Math.sqrt(d2) / LINK) * 0.3;
+          const o = (1 - Math.sqrt(d2) / LINK) * 0.22;
           ctx.strokeStyle = `rgba(14,120,110,${o})`;
-          ctx.lineWidth = 0.8;
+          ctx.lineWidth = 0.7;
           ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke();
         }
       }
       const pd = Math.hypot(a.x - pointer.x, a.y - pointer.y);
       const glow = pd < 180 ? (1 - pd / 180) : 0;
-      ctx.fillStyle = `rgba(20,95,105,${0.42 + glow * 0.45})`;
+      ctx.fillStyle = `rgba(25,95,110,${0.32 + glow * 0.45})`;
       ctx.beginPath(); ctx.arc(a.x, a.y, a.r + glow * 1.2, 0, Math.PI * 2); ctx.fill();
     }
   };
