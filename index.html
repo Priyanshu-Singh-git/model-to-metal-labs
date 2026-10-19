@@ -1,0 +1,558 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Model to Metal Labs — Applied AI for the physical world</title>
+  <meta name="description" content="An applied AI studio that takes deep learning from research code to real hardware: edge AI, computer vision, perception systems and from-scratch R&D. 5.0★ on every reviewed engagement." />
+  <meta name="theme-color" content="#0a0e13" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Model to Metal Labs — Applied AI for the physical world" />
+  <meta property="og:description" content="From research code to real hardware. Edge AI, perception and from-scratch R&D for teams building real products." />
+
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body>
+  <!-- Ambient background -->
+  <div class="ambient" aria-hidden="true">
+    <div class="orb orb-a"></div>
+    <div class="orb orb-b"></div>
+    <div class="orb orb-c"></div>
+    <canvas id="field"></canvas>
+    <div class="grain"></div>
+  </div>
+
+  <!-- Navigation -->
+  <header class="nav" id="nav">
+    <div class="container nav-inner">
+      <a href="#top" class="brand" aria-label="Model to Metal Labs home">
+        <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true">
+          <rect x="6" y="6" width="20" height="20" rx="5" fill="none" stroke="currentColor" stroke-width="1.6"/>
+          <path d="M11 2v4M16 2v4M21 2v4M11 26v4M16 26v4M21 26v4M2 11h4M2 16h4M2 21h4M26 11h4M26 16h4M26 21h4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" opacity=".55"/>
+          <circle cx="12" cy="13" r="1.8" fill="currentColor"/>
+          <circle cx="20" cy="12" r="1.8" fill="currentColor"/>
+          <circle cx="16" cy="20" r="1.8" fill="currentColor"/>
+          <path d="M12 13L20 12L16 20Z" fill="none" stroke="currentColor" stroke-width="1" opacity=".7"/>
+        </svg>
+        <span class="brand-name">Model to Metal <em>Labs</em></span>
+      </a>
+      <nav class="nav-links" id="navLinks" aria-label="Primary">
+        <a href="#record">Track record</a>
+        <a href="#services">Services</a>
+        <a href="#work">Work</a>
+        <a href="#process">Process</a>
+        <a href="#about">Studio</a>
+        <a href="#contact" class="btn btn-small">Start a project</a>
+      </nav>
+      <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false" aria-controls="navLinks">
+        <span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <main id="top">
+    <!-- Hero -->
+    <section class="hero">
+      <div class="container">
+        <p class="eyebrow reveal"><span class="pulse"></span>Applied AI studio · Taking new projects</p>
+        <h1 class="hero-title reveal">
+          From research code<br />
+          to <em>running on real hardware.</em>
+        </h1>
+        <p class="hero-sub reveal">
+          We build AI that works in the physical world: perception systems, edge inference on
+          low-power accelerators, and state-of-the-art R&amp;D taken from paper to product.
+          Trained in PyTorch, quantized, and shipped to the device.
+        </p>
+        <div class="hero-cta reveal">
+          <a href="#contact" class="btn">Discuss your project</a>
+          <a href="#work" class="btn btn-ghost">See the work <span aria-hidden="true">→</span></a>
+        </div>
+
+        <ul class="trust reveal" aria-label="Track record at a glance">
+          <li><strong>100%</strong><span>Job Success on Upwork</span></li>
+          <li><strong>5.0<small>★</small></strong><span>on every reviewed job</span></li>
+          <li><strong><span class="count" data-to="369">369</span>+</strong><span>hours delivered</span></li>
+          <li><strong>4</strong><span>live in-browser demos</span></li>
+        </ul>
+      </div>
+      <a href="#record" class="scroll-cue" aria-label="Scroll to track record"><span></span></a>
+    </section>
+
+    <!-- Track record -->
+    <section class="section" id="record">
+      <div class="container">
+        <header class="section-head reveal">
+          <p class="kicker">01 — Track record</p>
+          <h2>Clients come back. <em>Every reviewed job: 5.0.</em></h2>
+          <p class="lede">Engagements delivered through Upwork, from deep-tech startups to a Silicon Valley hardware company. Some are private, so they're described only as far as each client allows.</p>
+        </header>
+
+        <div class="record-grid">
+          <article class="record-card reveal">
+            <div class="record-top">
+              <span class="tag">Deep-tech startup · Israel</span>
+              <span class="stars" aria-label="Rated 5.0 out of 5">★★★★★ <b>5.0</b></span>
+            </div>
+            <h3>Quantum-inspired optimization</h3>
+            <p>Audited a numerical optimization codebase against the founder's own mathematical framework, verified internal consistency, and shaped it into an investor-ready product package.</p>
+            <p class="meta">Fixed scope · Nov – Dec 2025</p>
+          </article>
+
+          <article class="record-card reveal">
+            <div class="record-top">
+              <span class="tag">ML tooling product · Private</span>
+              <span class="stars" aria-label="Rated 5.0 out of 5">★★★★★ <b>5.0</b></span>
+            </div>
+            <h3>Training-efficiency research</h3>
+            <p>Designed and ran controlled A/B experiments for a plug-and-play learning-rate scheduling product across deep learning training runs, showing where it helps training and where it doesn't.</p>
+            <p class="meta">182 hours · Sep – Nov 2025</p>
+          </article>
+
+          <article class="record-card reveal">
+            <div class="record-top">
+              <span class="tag">Long-term R&amp;D partner · Private</span>
+              <span class="stars" aria-label="Rated 5.0 out of 5">★★★★★ <b>5.0</b></span>
+            </div>
+            <h3>Year-long deep learning engagement</h3>
+            <p>Ongoing model development across twelve months, our longest-running client relationship. Details stay under the client's privacy setting.</p>
+            <p class="meta">187 hours · Nov 2024 – Nov 2025</p>
+          </article>
+
+          <article class="record-card reveal">
+            <div class="record-top">
+              <span class="tag">Hardware company · Silicon Valley</span>
+              <span class="stars muted">Delivered on scope</span>
+            </div>
+            <h3>Real-time vision for a dashcam</h3>
+            <p>Built real-time computer vision processing for in-vehicle camera footage: detection and video-pipeline work for a consumer device.</p>
+            <p class="meta">Fixed scope · Oct 2025</p>
+          </article>
+        </div>
+
+        <p class="record-foot reveal">
+          Verified on <a href="https://www.upwork.com/freelancers/~0172854895b0a49f5f" target="_blank" rel="noopener">our Upwork profile <span aria-hidden="true">↗</span></a>
+          · Plus three industry roles in computer vision, AI research and generative AI.
+        </p>
+      </div>
+    </section>
+
+    <!-- Services -->
+    <section class="section" id="services">
+      <div class="container">
+        <header class="section-head reveal">
+          <p class="kicker">02 — What we do</p>
+          <h2>Core AI that <em>meets the real world.</em></h2>
+          <p class="lede">Not chat wrappers. Models that see, sense, decide and run on the device: built from the architecture up, measured honestly, and engineered until they hold up in production.</p>
+        </header>
+
+        <div class="services">
+          <article class="service reveal">
+            <div class="service-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><rect x="5" y="5" width="14" height="14" rx="3"/><path d="M9 1v4M15 1v4M9 19v4M15 19v4M1 9h4M1 15h4M19 9h4M19 15h4"/></svg>
+            </div>
+            <h3>Edge AI deployment</h3>
+            <p>PyTorch → ONNX → embedded NPU. INT8 quantization without the accuracy collapse, on-device pre/post-processing, and real-time throughput with several models sharing one low-cost board.</p>
+            <ul class="chips"><li>INT8</li><li>ONNX</li><li>TensorRT</li><li>Vendor NPU toolchains</li></ul>
+          </article>
+
+          <article class="service reveal">
+            <div class="service-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7S1 12 1 12z"/><circle cx="12" cy="12" r="3.2"/></svg>
+            </div>
+            <h3>Perception &amp; vision systems</h3>
+            <p>Detection, multi-object tracking, facial landmarks, lane and scene understanding, as real-time video pipelines for vehicles, cameras and robots.</p>
+            <ul class="chips"><li>YOLO</li><li>ByteTrack</li><li>Landmarks</li><li>Segmentation</li></ul>
+          </article>
+
+          <article class="service reveal">
+            <div class="service-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M16.5 16.5L22 22M8 11h6M11 8v6"/></svg>
+            </div>
+            <h3>Visual inspection &amp; anomaly detection</h3>
+            <p>Defect detection trained on photos of good parts only, with heatmaps showing exactly where the problem is. Runs on a CPU at line speed.</p>
+            <ul class="chips"><li>PatchCore</li><li>Label-free</li><li>CPU-ready</li></ul>
+          </article>
+
+          <article class="service reveal">
+            <div class="service-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M9 2h6M10 2v6L4 19a2 2 0 0 0 1.8 3h12.4a2 2 0 0 0 1.8-3L14 8V2"/><path d="M7 15h10"/></svg>
+            </div>
+            <h3>R&amp;D: paper to product</h3>
+            <p>State-of-the-art methods re-implemented from scratch, verified against the authors' results, then turned into something a customer can use. Ablations included.</p>
+            <ul class="chips"><li>Re-implementation</li><li>Ablations</li><li>Benchmarks</li></ul>
+          </article>
+
+          <article class="service reveal">
+            <div class="service-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><rect x="6" y="8" width="12" height="10" rx="2"/><path d="M12 8V4M9 22v-4M15 22v-4M9.5 12.5h.01M14.5 12.5h.01M3 13h3M18 13h3"/><circle cx="12" cy="3" r="1"/></svg>
+            </div>
+            <h3>Robotics &amp; autonomous agents</h3>
+            <p>Reinforcement learning agents and custom environments: DQN family to playtesting agents that learn whatever world you give them.</p>
+            <ul class="chips"><li>Deep RL</li><li>Custom Gym envs</li><li>Sim</li></ul>
+          </article>
+
+          <article class="service reveal">
+            <div class="service-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M2 12h2M6 8v8M10 5v14M14 9v6M18 7v10M22 12h-2"/></svg>
+            </div>
+            <h3>Signal &amp; audio intelligence</h3>
+            <p>Models on raw waveforms and sensor streams: synthetic-voice detection, sensor-network anomaly detection, and temporal classification across frames.</p>
+            <ul class="chips"><li>Raw audio</li><li>Graph attention</li><li>Time series</li></ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Featured case study -->
+    <section class="section" id="case">
+      <div class="container">
+        <header class="section-head reveal">
+          <p class="kicker">03 — Featured production work</p>
+          <h2>In-vehicle safety perception, <em>fully offline.</em></h2>
+          <p class="lede">A production system under client confidentiality, so it's shown by architecture and engineering only: no client names, footage or business figures.</p>
+        </header>
+
+        <div class="case reveal">
+          <div class="case-copy">
+            <h3>The problem</h3>
+            <p>Fleet and vehicle operators need to catch fatigue, distraction and safety violations as they happen, inside the cabin, with no network connection and no video leaving the vehicle.</p>
+
+            <h3>What we built</h3>
+            <p>A multiprocess perception pipeline on a low-power embedded NPU. Parallel models track the face, detect handheld devices and check restraint use. A temporal model turns frame-level signals into graded events, and every incident is clipped from pre- and post-event buffers and logged on the device.</p>
+
+            <h3>Hard problems solved</h3>
+            <ul class="ticks">
+              <li>INT8 quantization drift that silently cut accuracy after conversion</li>
+              <li>Tensor layout mismatches (NCHW vs NHWC) between training and the NPU runtime</li>
+              <li>Colour-order and coordinate re-projection errors in landmark post-processing</li>
+              <li>Holding real-time frame rates with several models sharing one device</li>
+            </ul>
+          </div>
+
+          <figure class="pipeline" aria-label="System architecture diagram">
+            <div class="pipe-band">
+              <span class="pipe-label">Per release</span>
+              <div class="pipe-row">
+                <span class="node">Train<small>PyTorch</small></span>
+                <span class="arrow"></span>
+                <span class="node">Export<small>ONNX</small></span>
+                <span class="arrow"></span>
+                <span class="node">Quantize<small>INT8 + calibration</small></span>
+              </div>
+            </div>
+            <div class="pipe-band device">
+              <span class="pipe-label">On device · no network</span>
+              <div class="pipe-row">
+                <span class="node accent">Camera<small>in-cabin stream</small></span>
+                <span class="arrow"></span>
+                <div class="node-stack">
+                  <span class="node">Face &amp; landmarks</span>
+                  <span class="node">Device detection</span>
+                  <span class="node">Restraint check</span>
+                </div>
+                <span class="arrow"></span>
+                <span class="node">Temporal model<small>Conv1D over frames</small></span>
+              </div>
+              <div class="pipe-row pipe-row-end">
+                <span class="node">Event logic<small>severity tiers</small></span>
+                <span class="arrow"></span>
+                <span class="node accent">Incident clip + log<small>pre/post buffers</small></span>
+              </div>
+            </div>
+            <figcaption>Multiple models run in parallel processes on a single embedded accelerator.</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- Work -->
+    <section class="section" id="work">
+      <div class="container">
+        <header class="section-head reveal">
+          <p class="kicker">04 — Lab work</p>
+          <h2>Built from scratch. <em>Measured honestly.</em> Try them live.</h2>
+          <p class="lede">Every project below is a from-scratch build with published numbers. Four run directly in your browser, so your data never leaves your device.</p>
+        </header>
+
+        <div class="work-grid">
+          <article class="work reveal">
+            <div class="work-visual v-defect" aria-hidden="true"><span class="scan"></span></div>
+            <div class="work-body">
+              <p class="work-kind">Industrial inspection</p>
+              <h3>DefectScope</h3>
+              <p>Spots scratches and dents from photos of good parts only. A from-scratch PatchCore that edges out Intel's anomalib reference on the same benchmark.</p>
+              <dl class="metrics">
+                <div><dt>94%</dt><dd>defects caught</dd></div>
+                <div><dt>0.990</dt><dd>image AUROC</dd></div>
+                <div><dt>50 ms</dt><dd>per part, CPU</dd></div>
+              </dl>
+              <div class="work-links">
+                <a href="https://priyanshu-singh-git.github.io/defectscope/" target="_blank" rel="noopener" class="link-live">Live demo ↗</a>
+                <a href="https://github.com/Priyanshu-Singh-git/defectscope" target="_blank" rel="noopener">Code ↗</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="work reveal">
+            <div class="work-visual v-voice" aria-hidden="true">
+              <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+            </div>
+            <div class="work-body">
+              <p class="work-kind">Voice-fraud screening</p>
+              <h3>VoiceShield</h3>
+              <p>Detects AI-cloned and synthetic speech from a few seconds of raw audio. A from-scratch AASIST graph-attention network that reproduces the authors' model exactly.</p>
+              <dl class="metrics">
+                <div><dt>1.40%</dt><dd>equal error rate</dd></div>
+                <div><dt>11</dt><dd>unseen attacks</dd></div>
+                <div><dt>0.14%</dt><dd>real voices flagged</dd></div>
+              </dl>
+              <div class="work-links">
+                <a href="https://priyanshu-singh-git.github.io/voiceshield/" target="_blank" rel="noopener" class="link-live">Live demo ↗</a>
+                <a href="https://github.com/Priyanshu-Singh-git/voiceshield" target="_blank" rel="noopener">Code ↗</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="work reveal">
+            <div class="work-visual v-pixel" aria-hidden="true"><span class="lo"></span><span class="hi"></span></div>
+            <div class="work-body">
+              <p class="work-kind">Super-resolution engine</p>
+              <h3>PixelForge Engine</h3>
+              <p>4× texture upscaler trained from scratch. Beats the official Real-ESRGAN on game textures with a fraction of the size. Seamless tiles stay seamless.</p>
+              <dl class="metrics">
+                <div><dt>15×</dt><dd>fewer parameters</dd></div>
+                <div><dt>~9×</dt><dd>faster on CPU</dd></div>
+                <div><dt>−90%</dt><dd>alpha-edge error</dd></div>
+              </dl>
+              <div class="work-links">
+                <a href="https://priyanshu-singh-git.github.io/pixelforge/" target="_blank" rel="noopener" class="link-live">Live demo ↗</a>
+                <a href="https://github.com/Priyanshu-Singh-git/pixelforge" target="_blank" rel="noopener">Code ↗</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="work reveal">
+            <div class="work-visual v-map" aria-hidden="true"></div>
+            <div class="work-body">
+              <p class="work-kind">Geospatial segmentation</p>
+              <h3>MapWise</h3>
+              <p>A U-Net that labels every pixel of satellite imagery into land-cover classes. Quantized 4× smaller for the browser with 99.998% agreement to full precision.</p>
+              <dl class="metrics">
+                <div><dt>0.685</dt><dd>mean IoU</dd></div>
+                <div><dt>85.9%</dt><dd>pixel accuracy</dd></div>
+                <div><dt>4×</dt><dd>smaller via INT8</dd></div>
+              </dl>
+              <div class="work-links">
+                <a href="https://priyanshu-singh-git.github.io/mapwise/" target="_blank" rel="noopener" class="link-live">Live demo ↗</a>
+                <a href="https://github.com/Priyanshu-Singh-git/mapwise" target="_blank" rel="noopener">Code ↗</a>
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <div class="more-work">
+          <article class="mini reveal">
+            <p class="work-kind">Robotics &amp; RL</p>
+            <h3>DriftMind</h3>
+            <p>An automated game-QA agent: a reinforcement learning agent that playtests any build it's given.</p>
+          </article>
+          <article class="mini reveal">
+            <p class="work-kind">Sensor networks</p>
+            <h3>Conformal Forensics</h3>
+            <p>Adversarially robust anomaly detection for sensor networks, with conformal guarantees on false-alarm rates.</p>
+          </article>
+          <article class="mini reveal">
+            <p class="work-kind">Training efficiency</p>
+            <h3>Adaptive LR Engine</h3>
+            <p>A learning-rate modulation engine benchmarked across multiple frameworks against standard schedules.</p>
+          </article>
+          <article class="mini reveal">
+            <p class="work-kind">Research · in progress</p>
+            <h3>Multiscale anomaly detection</h3>
+            <p>Dual-pathway memory bank with wavelet feature fusion, developed with a university professor for a top vision venue.</p>
+          </article>
+          <article class="mini reveal">
+            <p class="work-kind">Sports vision · in progress</p>
+            <h3>Ball tracking from synthetic data</h3>
+            <p>Trajectory estimation plus audio hit detection, trained on simulated courts rendered in Blender with exact 3D ground truth.</p>
+          </article>
+          <article class="mini reveal">
+            <p class="work-kind">Earlier work</p>
+            <h3>GANs, RL, detection &amp; more</h3>
+            <p>Conditional GAN, WGAN-GP, a detector from scratch, a DQN suite and a deployed fraud-detection app (94% accuracy).</p>
+            <a href="https://github.com/Priyanshu-Singh-git" target="_blank" rel="noopener" class="mini-link">All repositories ↗</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Process -->
+    <section class="section" id="process">
+      <div class="container">
+        <header class="section-head reveal">
+          <p class="kicker">05 — How we work</p>
+          <h2>A calm, <em>measurable</em> path to the device.</h2>
+        </header>
+
+        <ol class="steps">
+          <li class="step reveal">
+            <span class="step-n">01</span>
+            <h3>Feasibility</h3>
+            <p>We look at your data, hardware and constraints, and tell you plainly whether it will work, with a quick baseline before you commit to a build.</p>
+          </li>
+          <li class="step reveal">
+            <span class="step-n">02</span>
+            <h3>Prototype</h3>
+            <p>A working model on real samples, with honest metrics and a clear view of the weak spots.</p>
+          </li>
+          <li class="step reveal">
+            <span class="step-n">03</span>
+            <h3>Harden</h3>
+            <p>Ablations, edge cases, quantization and parity checks between training and deployed outputs.</p>
+          </li>
+          <li class="step reveal">
+            <span class="step-n">04</span>
+            <h3>Deploy &amp; hand off</h3>
+            <p>Running on your device or stack, with reproducible pipelines, tests and documentation your team can own.</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- Studio / founder -->
+    <section class="section" id="about">
+      <div class="container about">
+        <div class="about-card reveal">
+          <figure class="portrait">
+            <picture>
+              <source srcset="assets/img/priyanshu.webp" type="image/webp" />
+              <img src="assets/img/priyanshu.jpg" alt="Portrait of Priyanshu Singh, founder of Model to Metal Labs" width="640" height="800" loading="lazy" decoding="async" />
+            </picture>
+          </figure>
+          <p class="about-name">Priyanshu Singh</p>
+          <p class="about-role">Founder &amp; Lead Engineer</p>
+          <ul class="about-facts">
+            <li><span>Base</span>India · works across time zones</li>
+            <li><span>Education</span>Bachelor's in AI / ML</li>
+            <li><span>Industry</span>Computer vision, AI research and generative AI roles</li>
+            <li><span>Also</span>5+ years of 3D &amp; Blender, now used for synthetic training data</li>
+          </ul>
+          <div class="about-links">
+            <a href="https://www.linkedin.com/in/priyanshu-singh-9a8765266/" target="_blank" rel="noopener">LinkedIn ↗</a>
+            <a href="https://github.com/Priyanshu-Singh-git" target="_blank" rel="noopener">GitHub ↗</a>
+            <a href="https://www.upwork.com/freelancers/~0172854895b0a49f5f" target="_blank" rel="noopener">Upwork ↗</a>
+          </div>
+        </div>
+
+        <div class="about-copy reveal">
+          <p class="kicker">06 — The studio</p>
+          <h2>Many teams can train a model. <em>Fewer can make it run.</em></h2>
+          <p>Model to Metal Labs is an independent applied AI studio. We sit at the point where research meets hardware: reading the paper, rebuilding the method from scratch, proving it on real benchmarks, and then doing the unglamorous engineering that makes it run correctly and fast on the device you actually ship.</p>
+          <p>You work directly with the engineer building your system. No account managers or hand-offs, and no inflated numbers: every result we publish states how it was measured and where it falls short.</p>
+          <div class="stack">
+            <span>PyTorch</span><span>ONNX</span><span>TensorRT</span><span>INT8 quantization</span><span>Embedded NPUs</span><span>YOLO</span><span>OpenCV</span><span>timm</span><span>Ultralytics</span><span>ONNX Runtime Web</span><span>Docker</span><span>AWS</span><span>Blender</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section class="section" id="contact">
+      <div class="container">
+        <div class="contact reveal">
+          <div class="contact-copy">
+            <p class="kicker">07 — Start a project</p>
+            <h2>Have a model that needs to <em>leave the lab?</em></h2>
+            <p class="lede">Tell us what you're building, the hardware it has to run on, and where you're stuck. You'll get a straight answer on feasibility, usually within a day.</p>
+            <ul class="contact-points">
+              <li>Edge deployment &amp; optimization</li>
+              <li>Perception &amp; inspection systems</li>
+              <li>From-scratch R&amp;D builds</li>
+            </ul>
+            <div class="founder-note">
+              <picture>
+                <source srcset="assets/img/priyanshu-sm.webp" type="image/webp" />
+                <img src="assets/img/priyanshu-sm.jpg" alt="" width="56" height="56" loading="lazy" decoding="async" />
+              </picture>
+              <p><strong>Priyanshu Singh</strong><span>Founder &amp; Lead Engineer. You'll talk to me directly, not to a sales team.</span></p>
+            </div>
+            <p class="contact-direct">Prefer email? <a href="mailto:singhpriyaanshu308@gmail.com">singhpriyaanshu308@gmail.com</a></p>
+            <p class="contact-social">
+              <a href="https://www.linkedin.com/in/priyanshu-singh-9a8765266/" target="_blank" rel="noopener">LinkedIn ↗</a>
+              <a href="https://github.com/Priyanshu-Singh-git" target="_blank" rel="noopener">GitHub ↗</a>
+              <a href="https://www.upwork.com/freelancers/~0172854895b0a49f5f" target="_blank" rel="noopener">Upwork ↗</a>
+            </p>
+          </div>
+
+          <form class="contact-form" id="contactForm" novalidate>
+            <div class="field">
+              <label for="f-name">Name</label>
+              <input id="f-name" name="name" type="text" autocomplete="name" required />
+            </div>
+            <div class="field">
+              <label for="f-email">Work email</label>
+              <input id="f-email" name="email" type="email" autocomplete="email" required />
+            </div>
+            <div class="field">
+              <label for="f-type">Project type</label>
+              <select id="f-type" name="type" required>
+                <option value="" disabled selected>Choose the closest fit</option>
+                <optgroup label="Build">
+                  <option>Custom AI / ML model development</option>
+                  <option>Computer vision &amp; perception</option>
+                  <option>Visual inspection &amp; anomaly detection</option>
+                  <option>Robotics, autonomy &amp; reinforcement learning</option>
+                  <option>Audio, signal &amp; sensor data</option>
+                  <option>Time series &amp; predictive modeling</option>
+                  <option>NLP, LLM &amp; RAG systems</option>
+                  <option>Generative models (GANs, super-resolution)</option>
+                </optgroup>
+                <optgroup label="Deploy &amp; optimize">
+                  <option>Edge / embedded AI deployment</option>
+                  <option>Model optimization (quantization, speed, size)</option>
+                  <option>Cloud or web deployment of a model</option>
+                  <option>Fixing or improving an existing model</option>
+                </optgroup>
+                <optgroup label="Research &amp; advisory">
+                  <option>R&amp;D: paper to product</option>
+                  <option>Research collaboration or publication</option>
+                  <option>Synthetic data &amp; simulation</option>
+                  <option>Feasibility study or technical audit</option>
+                  <option>Ongoing AI engineering support</option>
+                </optgroup>
+                <option>Something else</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="f-msg">What are you building?</label>
+              <textarea id="f-msg" name="message" rows="4" required placeholder="Target hardware, data you have, timeline…"></textarea>
+            </div>
+            <button type="submit" class="btn btn-block">Send enquiry</button>
+            <p class="form-note" id="formNote" role="status" aria-live="polite"></p>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <p>© <span id="year"></span> Model to Metal Labs · Applied AI for the physical world</p>
+      <p class="footer-links">
+        <a href="https://www.linkedin.com/in/priyanshu-singh-9a8765266/" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="https://github.com/Priyanshu-Singh-git" target="_blank" rel="noopener">GitHub</a>
+        <a href="https://www.upwork.com/freelancers/~0172854895b0a49f5f" target="_blank" rel="noopener">Upwork</a>
+        <a href="#top">Back to top ↑</a>
+      </p>
+    </div>
+  </footer>
+
+  <script src="assets/js/main.js"></script>
+</body>
+</html>
