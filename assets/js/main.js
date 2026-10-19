@@ -117,11 +117,12 @@ document.querySelectorAll(".service").forEach((card) => {
       y: Math.random() * h,
       vx: (Math.random() - 0.5) * 0.12,
       vy: (Math.random() - 0.5) * 0.12,
-      r: Math.random() * 1.6 + (desktop ? 1.1 : 0.7),
+      r: Math.random() * 1.6 + (desktop ? 1.5 : 0.7),
     }));
   };
 
-  const LINK = window.innerWidth >= 1024 ? 185 : 145;
+  const desktopLines = window.innerWidth >= 1024;
+  const LINK = desktopLines ? 185 : 145;
   const draw = () => {
     ctx.clearRect(0, 0, w, h);
     for (const n of nodes) {
@@ -138,7 +139,7 @@ document.querySelectorAll(".service").forEach((card) => {
         if (d2 < LINK * LINK) {
           const o = (1 - Math.sqrt(d2) / LINK) * 0.45;
           ctx.strokeStyle = `rgba(14,120,110,${o})`;
-          ctx.lineWidth = 0.9;
+          ctx.lineWidth = desktopLines ? 1.3 : 0.9;
           ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke();
         }
       }
