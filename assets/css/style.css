@@ -881,6 +881,51 @@ em {
 .ticks strong { color: var(--text); font-weight: 500; }
 .more-block { margin-top: 30px; }
 
+/* Wide featured project: visual left, details right */
+.work-wide { grid-column: 1 / -1; flex-direction: row; }
+.work-wide .work-visual { flex: 0 0 42%; height: auto; min-height: 260px; border-bottom: 0; border-right: 1px solid var(--line); }
+.link-private { font-size: 13.5px; color: var(--muted); }
+.link-private::before { content: "🔒 "; font-size: 12px; }
+
+/* DriftMind visual: an agent exploring a maze toward a goal */
+.v-agent {
+  background:
+    linear-gradient(90deg, rgba(16, 42, 67, .07) 1px, transparent 1px) 0 0 / 28px 28px,
+    linear-gradient(rgba(16, 42, 67, .07) 1px, transparent 1px) 0 0 / 28px 28px,
+    linear-gradient(135deg, #eef4fb, #e5f2ef);
+}
+.v-agent::before {
+  content: "";
+  position: absolute;
+  inset: 22% 18%;
+  border: 2px solid rgba(14, 138, 123, .28);
+  border-radius: 6px;
+  clip-path: polygon(0 0, 100% 0, 100% 45%, 70% 45%, 70% 100%, 0 100%, 0 55%, 35% 55%, 35% 25%, 0 25%);
+}
+.v-agent .agent, .v-agent .goal {
+  position: absolute;
+  width: 14px; height: 14px;
+  border-radius: 50%;
+}
+.v-agent .goal {
+  right: 18%; bottom: 22%;
+  background: var(--warm);
+  box-shadow: 0 0 0 6px rgba(224, 163, 58, .18);
+}
+.v-agent .agent {
+  background: var(--accent-2);
+  box-shadow: 0 0 0 6px rgba(53, 103, 214, .16), 0 0 18px rgba(53, 103, 214, .45);
+  animation: explore 9s var(--ease) infinite;
+}
+@keyframes explore {
+  0%   { left: 18%; top: 22%; }
+  20%  { left: 60%; top: 30%; }
+  35%  { left: 42%; top: 58%; }
+  55%  { left: 24%; top: 70%; }
+  75%  { left: 62%; top: 72%; }
+  90%, 100% { left: calc(82% - 14px); top: calc(78% - 14px); }
+}
+
 .more-work {
   margin-top: 18px;
   display: grid;
@@ -1177,6 +1222,8 @@ em {
   .nav.menu-open { background: rgba(244, 247, 251, .97); }
 
   .record-grid, .work-grid { grid-template-columns: 1fr; }
+  .work-wide { flex-direction: column; }
+  .work-wide .work-visual { flex: none; height: 170px; min-height: 0; border-right: 0; border-bottom: 1px solid var(--line); }
   .trust { grid-template-columns: repeat(2, 1fr); row-gap: 8px; }
 }
 
