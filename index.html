@@ -318,16 +318,39 @@
         </header>
 
         <div class="work-grid">
-          <article class="work reveal">
-            <div class="work-visual v-defect" aria-hidden="true"><span class="scan"></span></div>
+          <article class="work work-wide reveal">
+            <div class="work-visual work-photo">
+              <picture><source srcset="assets/img/work/driftmind.webp" type="image/webp" /><img src="assets/img/work/driftmind.jpg" alt="DriftMind agent playing a first-person shooter from raw pixels: 18 kills at full health" loading="lazy" decoding="async" /></picture>
+              <span class="badge">Private beta</span>
+            </div>
             <div class="work-body">
-              <p class="work-kind">Industrial inspection</p>
+              <p class="work-kind">Autonomous agents · Automated game testing</p>
+              <h3>DriftMind</h3>
+              <p>An AI player that teaches itself any game just by watching the screen, with no rules and no game-specific code. Point it at a new build and it plays thousands of sessions overnight to surface bugs, exploits and difficulty spikes before your players do.</p>
+              <dl class="metrics">
+                <div><dt>100%</dt><dd>success in 3D navigation</dd></div>
+                <div><dt>18+</dt><dd>targets per run in a shooter</dd></div>
+                <div><dt>43%</dt><dd>never-seen levels cleared</dd></div>
+              </dl>
+              <div class="work-links">
+                <span class="link-private">Private build · demo on request</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="work reveal">
+            <div class="work-visual work-photo">
+              <picture><source srcset="assets/img/work/defectscope.webp" type="image/webp" /><img src="assets/img/work/defectscope.jpg" alt="Parts with defects and the heatmaps DefectScope uses to pinpoint them" loading="lazy" decoding="async" /></picture>
+              <span class="badge live">Live demo</span>
+            </div>
+            <div class="work-body">
+              <p class="work-kind">AI quality inspection</p>
               <h3>DefectScope</h3>
-              <p>Finds scratches and dents, trained on good parts only. Beats Intel's reference implementation.</p>
+              <p>An automated inspector for production lines that learns from photos of good parts only, then pinpoints scratches and dents on anything that doesn't match. No defect library and no labelling, and it outperforms Intel's open-source reference.</p>
               <dl class="metrics">
                 <div><dt>94%</dt><dd>defects caught</dd></div>
-                <div><dt>0.990</dt><dd>image AUROC</dd></div>
-                <div><dt>50 ms</dt><dd>per part, CPU</dd></div>
+                <div><dt>0</dt><dd>defect photos needed</dd></div>
+                <div><dt>50 ms</dt><dd>per part, no GPU</dd></div>
               </dl>
               <div class="work-links">
                 <a href="https://priyanshu-singh-git.github.io/defectscope/" target="_blank" rel="noopener" class="link-live">Live demo ↗</a>
@@ -337,17 +360,18 @@
           </article>
 
           <article class="work reveal">
-            <div class="work-visual v-voice" aria-hidden="true">
-              <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+            <div class="work-visual work-photo">
+              <picture><source srcset="assets/img/work/voiceshield.webp" type="image/webp" /><img src="assets/img/work/voiceshield.jpg" alt="3D rendering of a voice signal analysed by VoiceShield" loading="lazy" decoding="async" /></picture>
+              <span class="badge live">Live demo</span>
             </div>
             <div class="work-body">
-              <p class="work-kind">Voice-fraud screening</p>
+              <p class="work-kind">Deepfake voice detection</p>
               <h3>VoiceShield</h3>
-              <p>Detects AI-cloned voices from a few seconds of audio.</p>
+              <p>Tells a real voice from an AI clone in seconds: a security layer for call centres, voice logins and identity checks. It catches cloning methods it has never seen before.</p>
               <dl class="metrics">
-                <div><dt>1.40%</dt><dd>equal error rate</dd></div>
-                <div><dt>11</dt><dd>unseen attacks</dd></div>
-                <div><dt>0.14%</dt><dd>real voices flagged</dd></div>
+                <div><dt>1.4%</dt><dd>error rate</dd></div>
+                <div><dt>11</dt><dd>unseen cloning methods</dd></div>
+                <div><dt>0.14%</dt><dd>false alarms on real voices</dd></div>
               </dl>
               <div class="work-links">
                 <a href="https://priyanshu-singh-git.github.io/voiceshield/" target="_blank" rel="noopener" class="link-live">Live demo ↗</a>
@@ -357,15 +381,18 @@
           </article>
 
           <article class="work reveal">
-            <div class="work-visual v-pixel" aria-hidden="true"><span class="lo"></span><span class="hi"></span></div>
+            <div class="work-visual work-photo top">
+              <picture><source srcset="assets/img/work/pixelforge.webp" type="image/webp" /><img src="assets/img/work/pixelforge.jpg" alt="Game textures before and after PixelForge 4× enhancement" loading="lazy" decoding="async" /></picture>
+              <span class="badge live">Live demo</span>
+            </div>
             <div class="work-body">
-              <p class="work-kind">Super-resolution engine</p>
+              <p class="work-kind">Game graphics enhancement</p>
               <h3>PixelForge Engine</h3>
-              <p>4× texture upscaler that beats Real-ESRGAN at a fraction of the size.</p>
+              <p>AI remastering for game graphics: old, blurry textures come back as crisp 4× HD in a fraction of a second each. Repeating tiles stay seamless, edges stay clean, and it outperforms the industry-standard upscaler.</p>
               <dl class="metrics">
-                <div><dt>15×</dt><dd>fewer parameters</dd></div>
-                <div><dt>~9×</dt><dd>faster on CPU</dd></div>
-                <div><dt>−90%</dt><dd>alpha-edge error</dd></div>
+                <div><dt>4×</dt><dd>sharper resolution</dd></div>
+                <div><dt>15×</dt><dd>lighter model</dd></div>
+                <div><dt>~9×</dt><dd>faster</dd></div>
               </dl>
               <div class="work-links">
                 <a href="https://priyanshu-singh-git.github.io/pixelforge/" target="_blank" rel="noopener" class="link-live">Live demo ↗</a>
@@ -375,15 +402,18 @@
           </article>
 
           <article class="work reveal">
-            <div class="work-visual v-map" aria-hidden="true"></div>
+            <div class="work-visual work-photo">
+              <picture><source srcset="assets/img/work/mapwise.webp" type="image/webp" /><img src="assets/img/work/mapwise.jpg" alt="Satellite image beside the land-cover map MapWise produces from it" loading="lazy" decoding="async" /></picture>
+              <span class="badge live">Live demo</span>
+            </div>
             <div class="work-body">
-              <p class="work-kind">Geospatial segmentation</p>
+              <p class="work-kind">Satellite intelligence</p>
               <h3>MapWise</h3>
-              <p>Labels every pixel of satellite imagery by land cover, right in the browser.</p>
+              <p>Turns raw satellite images into land-use maps, measuring farmland, forest, water and urban growth for agriculture, insurance and environmental work. Runs entirely in the browser, so imagery never leaves the device.</p>
               <dl class="metrics">
-                <div><dt>0.685</dt><dd>mean IoU</dd></div>
+                <div><dt>6</dt><dd>land types mapped</dd></div>
                 <div><dt>85.9%</dt><dd>pixel accuracy</dd></div>
-                <div><dt>4×</dt><dd>smaller via INT8</dd></div>
+                <div><dt>0</dt><dd>server uploads</dd></div>
               </dl>
               <div class="work-links">
                 <a href="https://priyanshu-singh-git.github.io/mapwise/" target="_blank" rel="noopener" class="link-live">Live demo ↗</a>
@@ -392,24 +422,6 @@
             </div>
           </article>
 
-          <article class="work work-wide reveal">
-            <div class="work-visual v-agent" aria-hidden="true">
-              <span class="agent"></span><span class="goal"></span>
-            </div>
-            <div class="work-body">
-              <p class="work-kind">Autonomous agents · Game QA</p>
-              <h3>DriftMind</h3>
-              <p>One self-taught agent plays very different games from raw pixels, with no rules and no game-specific code. The same engine becomes an automated playtester for QA, balance and regression testing.</p>
-              <dl class="metrics">
-                <div><dt>100%</dt><dd>3D navigation success</dd></div>
-                <div><dt>18+</dt><dd>targets per run (FPS)</dd></div>
-                <div><dt>43%</dt><dd>unseen levels solved</dd></div>
-              </dl>
-              <div class="work-links">
-                <span class="link-private">Private build · demo on request</span>
-              </div>
-            </div>
-          </article>
         </div>
 
         <details class="more more-block reveal">
@@ -418,27 +430,27 @@
           <article class="mini reveal">
             <p class="work-kind">Sensor networks</p>
             <h3>Conformal Forensics</h3>
-            <p>Adversarially robust anomaly detection for sensor networks, with conformal guarantees on false-alarm rates.</p>
+            <p>Attack-resistant anomaly detection for sensor networks, with guaranteed limits on false alarms.</p>
           </article>
           <article class="mini reveal">
             <p class="work-kind">Training efficiency</p>
             <h3>Adaptive LR Engine</h3>
-            <p>A learning-rate modulation engine benchmarked across multiple frameworks against standard schedules.</p>
+            <p>An engine that adapts how models learn as they train, benchmarked against standard methods across frameworks.</p>
           </article>
           <article class="mini reveal">
             <p class="work-kind">Research · in progress</p>
             <h3>Multiscale anomaly detection</h3>
-            <p>Dual-pathway memory bank with wavelet feature fusion, developed with a university professor for a top vision venue.</p>
+            <p>A new architecture that spots anomalies at every scale, developed with a university professor for a top computer vision conference.</p>
           </article>
           <article class="mini reveal">
             <p class="work-kind">Sports vision · in progress</p>
             <h3>Ball tracking from synthetic data</h3>
-            <p>Trajectory estimation plus audio hit detection, trained on simulated courts rendered in Blender with exact 3D ground truth.</p>
+            <p>Follows a fast-moving ball and hears every hit. Trained on simulated courts, so no manual labelling is needed.</p>
           </article>
           <article class="mini reveal">
             <p class="work-kind">Earlier work</p>
-            <h3>GANs, RL, detection &amp; more</h3>
-            <p>Conditional GAN, WGAN-GP, a detector from scratch, a DQN suite and a deployed fraud-detection app (94% accuracy).</p>
+            <h3>Generative AI, agents &amp; more</h3>
+            <p>Image generation, game-playing agents, an object detector built from scratch, and a deployed medical-fraud detector (94% accuracy).</p>
             <a href="https://github.com/Priyanshu-Singh-git" target="_blank" rel="noopener" class="mini-link">All repositories ↗</a>
           </article>
         </div>
