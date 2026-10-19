@@ -332,7 +332,7 @@ em {
   max-width: 620px;
   font-size: clamp(16px, 1.6vw, 18.5px);
   color: var(--text-2);
-  font-weight: 300;
+  font-weight: 400;
 }
 .hero-cta {
   margin-top: 38px;
