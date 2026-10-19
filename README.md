@@ -1,4 +1,6 @@
-# Model to Metal Labs — website
+# M2M Labs (Model to Metal) — website
+
+Live at https://m2mlabs.in
 
 Static site: plain HTML, CSS and JavaScript. No build step, no backend, no database.
 

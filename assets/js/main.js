@@ -1,4 +1,4 @@
-/* Model to Metal Labs — site behaviour */
+/* M2M Labs (Model to Metal) — site behaviour */
 
 // ---------------------------------------------------------------------------
 // Settings — edit these two values before deploying.
