@@ -14,6 +14,123 @@ const CONFIG = {
 document.documentElement.classList.add("js");
 
 // ---------------------------------------------------------------------------
+// Background: drifting stars at three depths, a warm glow that eases after the
+// pointer, stars that brighten and step aside near it, and a ring cursor
+// ---------------------------------------------------------------------------
+(() => {
+  const canvas = document.getElementById("sky");
+  const ctx = canvas.getContext("2d");
+  const still = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const finePointer = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+  const GLOW = [244, 108, 56]; // --orange
+  let w = 0, h = 0, dpr = 1, stars = [], raf = 0, t = 0;
+
+  // Where the pointer is (target) and where the glow is drawn (eased towards it)
+  const target = { x: 0, y: 0, active: false };
+  const glow = { x: 0, y: 0 };
+
+  const resize = () => {
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    w = window.innerWidth; h = window.innerHeight;
+    canvas.width = Math.round(w * dpr); canvas.height = Math.round(h * dpr);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    const count = Math.round(Math.min(160, (w * h) / 9000));
+    stars = Array.from({ length: count }, () => {
+      const depth = Math.random() < .55 ? 1 : Math.random() < .7 ? 2 : 3; // 1 far … 3 near
+      return {
+        x: Math.random() * w, y: Math.random() * h,
+        depth,
+        r: depth * .45 + Math.random() * .5,
+        vy: -(.04 + Math.random() * .06) * depth, // slow upward drift, nearer is faster
+        vx: (Math.random() - .5) * .03 * depth,
+        phase: Math.random() * Math.PI * 2,
+        speed: .6 + Math.random() * 1.4,
+        ox: 0, oy: 0, // push away from the glow
+      };
+    });
+    if (!target.active) { target.x = glow.x = w * .7; target.y = glow.y = h * .3; }
+  };
+
+  const draw = () => {
+    t += 1 / 60;
+    ctx.clearRect(0, 0, w, h);
+
+    // On touch screens the glow wanders slowly until a finger moves it
+    if (!finePointer && !target.active) {
+      target.x = w * (.5 + .35 * Math.sin(t * .13));
+      target.y = h * (.4 + .25 * Math.sin(t * .09 + 1));
+    }
+    glow.x += (target.x - glow.x) * .06;
+    glow.y += (target.y - glow.y) * .06;
+
+    // The glow: a soft warm light, wide and faint, with a brighter core
+    const R = Math.min(Math.max(w, h) * .38, 520);
+    const g = ctx.createRadialGradient(glow.x, glow.y, 0, glow.x, glow.y, R);
+    g.addColorStop(0, `rgba(${GLOW}, .42)`);
+    g.addColorStop(.18, `rgba(${GLOW}, .24)`);
+    g.addColorStop(.5, `rgba(${GLOW}, .07)`);
+    g.addColorStop(1, `rgba(${GLOW}, 0)`);
+    ctx.fillStyle = g;
+    ctx.fillRect(0, 0, w, h);
+
+    // Parallax: near stars shift further against the pointer than far ones
+    const px = (glow.x / w - .5), py = (glow.y / h - .5);
+    for (const s of stars) {
+      s.x += s.vx; s.y += s.vy;
+      if (s.y < -10) { s.y = h + 10; s.x = Math.random() * w; }
+      if (s.x < -10) s.x = w + 10; else if (s.x > w + 10) s.x = -10;
+
+      const sx = s.x - px * s.depth * 14;
+      const sy = s.y - py * s.depth * 14;
+      const dx = sx - glow.x, dy = sy - glow.y;
+      const dist = Math.hypot(dx, dy) || 1;
+      const near = Math.max(0, 1 - dist / 220);
+      s.ox += ((dx / dist) * near * 18 * s.depth / 3 - s.ox) * .08;
+      s.oy += ((dy / dist) * near * 18 * s.depth / 3 - s.oy) * .08;
+
+      const twinkle = .55 + .45 * Math.sin(t * s.speed + s.phase);
+      const a = Math.min(1, (.18 + s.depth * .14) * twinkle + near * .7);
+      ctx.fillStyle = near > .05 ? `rgba(255, ${Math.round(255 - near * 90)}, ${Math.round(255 - near * 160)}, ${a})` : `rgba(255, 255, 255, ${a})`;
+      ctx.beginPath();
+      ctx.arc(sx + s.ox, sy + s.oy, s.r + near * 1.2, 0, Math.PI * 2);
+      ctx.fill();
+    }
+  };
+
+  const loop = () => { draw(); raf = requestAnimationFrame(loop); };
+
+  resize();
+  window.addEventListener("resize", () => { resize(); if (still) draw(); });
+
+  if (still) { draw(); return; }
+
+  window.addEventListener("pointermove", (e) => {
+    target.x = e.clientX; target.y = e.clientY; target.active = true;
+  }, { passive: true });
+  document.addEventListener("visibilitychange", () => {
+    cancelAnimationFrame(raf);
+    if (!document.hidden) loop();
+  });
+  loop();
+
+  // Ring cursor (mouse and trackpad only): follows closely, grows over links
+  if (!finePointer) return;
+  const ring = document.getElementById("cursorRing");
+  let rx = 0, ry = 0, mx = 0, my = 0;
+  window.addEventListener("pointermove", (e) => { mx = e.clientX; my = e.clientY; ring.classList.add("on"); }, { passive: true });
+  document.documentElement.addEventListener("mouseleave", () => ring.classList.remove("on"));
+  document.addEventListener("pointerover", (e) => {
+    ring.classList.toggle("big", !!e.target.closest("a, button, select, input, textarea, summary, .demo"));
+  });
+  const follow = () => {
+    rx += (mx - rx) * .25; ry += (my - ry) * .25;
+    ring.style.transform = `translate3d(${rx}px, ${ry}px, 0)`;
+    requestAnimationFrame(follow);
+  };
+  follow();
+})();
+
+// ---------------------------------------------------------------------------
 // Dock: highlight the section on screen
 // ---------------------------------------------------------------------------
 const dockLinks = [...document.querySelectorAll("#dock a")];
