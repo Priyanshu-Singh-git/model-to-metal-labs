@@ -115,6 +115,64 @@ document.documentElement.classList.add("js");
 })();
 
 // ---------------------------------------------------------------------------
+// The name across the top: letters rise in, and the size is fitted so the
+// longest line runs the full width of the page
+// ---------------------------------------------------------------------------
+(() => {
+  const name = document.getElementById("bigname");
+  name.setAttribute("aria-label", "Priyanshu Singh");
+  let i = 0;
+  name.querySelectorAll(".word").forEach((word) => {
+    word.setAttribute("aria-hidden", "true");
+    word.innerHTML = [...word.textContent]
+      .map((c) => `<span class="clip"><span class="ch" style="--i:${i++}">${c}</span></span>`)
+      .join("");
+  });
+
+  const fit = () => {
+    name.style.fontSize = "100px";
+    // Width of a line = from its first letter's left edge to its last letter's right edge
+    const span = (clips) => clips[clips.length - 1].getBoundingClientRect().right - clips[0].getBoundingClientRect().left;
+    const words = [...name.querySelectorAll(".word")];
+    const stacked = getComputedStyle(words[0]).display === "block";
+    const lineWidth = stacked
+      ? Math.max(...words.map((w) => span([...w.querySelectorAll(".clip")])))
+      : span([...name.querySelectorAll(".clip")]);
+    const target = name.clientWidth;
+    name.style.fontSize = `${Math.floor(100 * target / lineWidth * 0.995)}px`;
+  };
+  fit();
+  document.fonts?.ready.then(fit);
+  window.addEventListener("resize", fit);
+})();
+
+// ---------------------------------------------------------------------------
+// Lens: a disc on the pointer that inverts whatever is under it
+// ---------------------------------------------------------------------------
+(() => {
+  if (!window.matchMedia("(hover: hover) and (pointer: fine)").matches) return;
+  const lens = document.getElementById("lens");
+  const instant = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  let x = 0, y = 0, lx = 0, ly = 0, running = false;
+  const step = () => {
+    lx += (x - lx) * (instant ? 1 : .3);
+    ly += (y - ly) * (instant ? 1 : .3);
+    lens.style.transform = `translate3d(${lx}px, ${ly}px, 0)`;
+    running = Math.abs(x - lx) > .1 || Math.abs(y - ly) > .1;
+    if (running) requestAnimationFrame(step);
+  };
+  window.addEventListener("pointermove", (e) => {
+    x = e.clientX; y = e.clientY;
+    if (!lens.classList.contains("on")) { lx = x; ly = y; lens.classList.add("on"); }
+    if (!running) { running = true; requestAnimationFrame(step); }
+  }, { passive: true });
+  document.documentElement.addEventListener("mouseleave", () => lens.classList.remove("on"));
+  document.addEventListener("pointerover", (e) => {
+    lens.classList.toggle("big", !!e.target.closest("a, button, summary, .bigname, .duo, img"));
+  });
+})();
+
+// ---------------------------------------------------------------------------
 // Dock: highlight the section on screen
 // ---------------------------------------------------------------------------
 const dockLinks = [...document.querySelectorAll("#dock a")];

@@ -54,6 +54,20 @@ svg { fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round
 .sky { position: fixed; inset: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; }
 .page { position: relative; z-index: 1; }
 
+/* ---------- inverting lens on the pointer ---------- */
+.lens {
+  position: fixed; left: 0; top: 0; z-index: 9999;
+  width: 48px; height: 48px; margin: -24px 0 0 -24px;
+  border-radius: 50%; background: #fff;
+  mix-blend-mode: difference;
+  pointer-events: none; opacity: 0;
+  transition: width .3s var(--ease), height .3s var(--ease), margin .3s var(--ease), opacity .3s ease;
+  will-change: transform;
+}
+.lens.on { opacity: 1; }
+.lens.big { width: 96px; height: 96px; margin: -48px 0 0 -48px; }
+@media (hover: none), (pointer: coarse) { .lens { display: none; } }
+
 /* ---------- icon dock ---------- */
 .dock {
   position: fixed; top: 1.25rem; left: 50%; z-index: 100;
@@ -91,12 +105,32 @@ svg { fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round
 .page {
   max-width: var(--page);
   margin: 0 auto;
-  padding: 8.5rem var(--gutter) 2rem;
+  padding: 6.5rem var(--gutter) 2rem;
   display: grid;
   grid-template-columns: minmax(0, 344px) minmax(0, 1fr);
   gap: clamp(2.5rem, 7vw, 6.25rem);
   align-items: start;
 }
+
+/* ---------- the name across the top ---------- */
+.bigname {
+  grid-column: 1 / -1;
+  min-width: 0;
+  margin: 0 0 1rem;
+  font-family: "Funnel Sans", var(--sans);
+  font-weight: 700;
+  font-size: 12.4vw;            /* close to the fitted size before the script measures */
+  line-height: .9;
+  letter-spacing: -.06em;
+  color: #ece8df;
+  white-space: nowrap;
+  text-transform: lowercase;
+}
+.bigname .word { display: inline-block; }
+.bigname .ch { display: inline-block; }
+.js .bigname .ch { transform: translateY(105%); opacity: 0; animation: rise .9s var(--ease) forwards; animation-delay: calc(var(--i) * 35ms + .1s); }
+.bigname .clip { display: inline-block; overflow: hidden; padding-bottom: .06em; vertical-align: top; }
+@keyframes rise { to { transform: none; opacity: 1; } }
 
 /* ---------- profile card ---------- */
 .profile { position: sticky; top: 8.5rem; }
@@ -402,6 +436,8 @@ svg { fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round
 }
 
 @media (max-width: 600px) {
+  .bigname { white-space: normal; }
+  .bigname .word { display: block; white-space: nowrap; }
   .track { display: flex; flex-direction: column; }
   .track-ends { display: contents; }
   .track-ends span { font-size: 1rem; padding-left: 2.25rem; }
