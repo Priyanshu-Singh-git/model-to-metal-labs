@@ -188,6 +188,9 @@ const bigname = (() => {
     '700 100px "Oswald"', '400 16px "Outfit"', '700 100px "Funnel Sans"', '400 16px "Poppins"', '700 16px "Poppins"',
   ].map((f) => document.fonts?.load(f).catch(() => null))).catch(() => null);
 
+  const skyEl = document.getElementById("sky");
+  let deferSky = false; // during a switch, start the stars only after it settles
+
   const reflect = (theme) => {
     const t = THEMES[theme];
     themeColor.setAttribute("content", t.color);
@@ -197,7 +200,9 @@ const bigname = (() => {
       b.setAttribute("aria-label", label);
       if (b.hasAttribute("data-tip")) b.setAttribute("data-tip", t.next === "light" ? "Light theme" : "Dark theme");
     });
-    if (theme === "dark") sky.start(); else sky.stop();
+    if (theme !== "dark") { sky.stop(); return; }
+    if (deferSky) { skyEl.classList.add("waiting"); return; }
+    sky.start();
   };
 
   const apply = (theme) => {
@@ -208,8 +213,8 @@ const bigname = (() => {
     bigname.replay();
   };
 
-  // Never hold the switch for slow fonts: wait at most 0.6s, refit when they land
-  const fontsOrTimeout = () => Promise.race([fontsLoaded, new Promise((r) => setTimeout(r, 600))]);
+  // Never hold the switch for slow fonts: wait at most 0.25s, refit when they land
+  const fontsOrTimeout = () => Promise.race([fontsLoaded, new Promise((r) => setTimeout(r, 250))]);
   let busy = false;
 
   const switchTheme = (button) => {
@@ -234,12 +239,21 @@ const bigname = (() => {
     root.style.setProperty("--vt-end", `${end}px`);
 
     busy = true;
+    deferSky = true;
     root.classList.add("theme-anim");
     const vt = document.startViewTransition(async () => {
       await fontsOrTimeout();
       apply(next);
     });
-    vt.finished.catch(() => {}).finally(() => { root.classList.remove("theme-anim"); busy = false; });
+    vt.finished.catch(() => {}).finally(() => {
+      root.classList.remove("theme-anim");
+      busy = false;
+      deferSky = false;
+      if (root.getAttribute("data-theme") === "dark") {
+        sky.start();
+        requestAnimationFrame(() => skyEl.classList.remove("waiting"));
+      }
+    });
   };
 
   toggles.forEach((b) => b.addEventListener("click", () => switchTheme(b)));
