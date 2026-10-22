@@ -5,11 +5,30 @@ Live at https://m2mlabs.in
 Static site: plain HTML, CSS and JavaScript. No build step, no backend, no database.
 
 ```
-index.html              the whole page
-assets/css/style.css    styles
-assets/js/main.js       behaviour + settings (contact email, form endpoint)
-assets/favicon.svg      tab icon
+index.html                 the whole page
+assets/css/src/light.css   light theme (cream and coral)  — edit this
+assets/css/src/dark.css    dark theme (stars and brass)   — edit this
+assets/css/light.css       generated from src/light.css   — don't edit
+assets/css/dark.css        generated from src/dark.css    — don't edit
+assets/css/theme.css       shared: theme switch, brand line, switch transition
+assets/js/main.js          behaviour + settings (contact email, form endpoint)
+assets/favicon.svg         tab icon, light theme
+assets/favicon-dark.svg    tab icon, dark theme
+tools/build_css.py         scopes each theme's CSS to that theme
 ```
+
+## Two themes
+
+The site has a light theme (default) and a dark theme, switched by the sun/moon button
+(beside "Start a project" in light, last key in the dock in dark). The visitor's choice is
+remembered. After editing `assets/css/src/light.css` or `src/dark.css`, run:
+
+```
+python tools/build_css.py
+```
+
+and bump the `?v=` stamp on the stylesheet and script links in `index.html` so browsers
+fetch the new files.
 
 ## Before you deploy
 

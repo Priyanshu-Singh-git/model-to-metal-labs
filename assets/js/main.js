@@ -1,4 +1,4 @@
-/* M2M Labs (Model to Metal) — site behaviour */
+/* M2M Labs (Model2Metal) — site behaviour, both themes */
 
 // ---------------------------------------------------------------------------
 // Settings — edit these two values before deploying.
@@ -11,10 +11,12 @@ const CONFIG = {
   formEndpoint: "",
 };
 
-document.documentElement.classList.add("js");
+const root = document.documentElement;
+root.classList.add("js");
+const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 // ---------------------------------------------------------------------------
-// Headings set "&" in a serif italic, the way the Cocoon type does
+// Headings set "&" in a serif italic, the way the light theme's type does
 // ---------------------------------------------------------------------------
 document.querySelectorAll(".duo span, h3, .sub-title").forEach((el) => {
   if (el.children.length === 0 && el.textContent.includes("&")) {
@@ -23,12 +25,117 @@ document.querySelectorAll(".duo span, h3, .sub-title").forEach((el) => {
 });
 
 // ---------------------------------------------------------------------------
-// The name across the top: letters rise in, and the size is fitted so the
-// longest line runs the full width of the page
+// Dark theme background: drifting stars at three depths, a warm glow that eases
+// after the pointer, and stars that brighten and step aside near it.
+// Runs only while the dark theme is on.
 // ---------------------------------------------------------------------------
-(() => {
+const sky = (() => {
+  const canvas = document.getElementById("sky");
+  const ctx = canvas.getContext("2d");
+  const finePointer = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+  const GLOW = [201, 164, 106]; // brass accent
+  let w = 0, h = 0, dpr = 1, stars = [], raf = 0, t = 0, on = false, ready = false;
+
+  const target = { x: 0, y: 0, active: false };
+  const glow = { x: 0, y: 0 };
+
+  const resize = () => {
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    w = window.innerWidth; h = window.innerHeight;
+    canvas.width = Math.round(w * dpr); canvas.height = Math.round(h * dpr);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    const count = Math.round(Math.min(160, (w * h) / 9000));
+    stars = Array.from({ length: count }, () => {
+      const depth = Math.random() < .55 ? 1 : Math.random() < .7 ? 2 : 3; // 1 far … 3 near
+      return {
+        x: Math.random() * w, y: Math.random() * h,
+        depth,
+        r: depth * .45 + Math.random() * .5,
+        vy: -(.04 + Math.random() * .06) * depth,
+        vx: (Math.random() - .5) * .03 * depth,
+        phase: Math.random() * Math.PI * 2,
+        speed: .6 + Math.random() * 1.4,
+        ox: 0, oy: 0,
+      };
+    });
+    if (!target.active) { target.x = glow.x = w * .7; target.y = glow.y = h * .3; }
+  };
+
+  const draw = () => {
+    t += 1 / 60;
+    ctx.clearRect(0, 0, w, h);
+    if (!finePointer && !target.active) {
+      target.x = w * (.5 + .35 * Math.sin(t * .13));
+      target.y = h * (.4 + .25 * Math.sin(t * .09 + 1));
+    }
+    glow.x += (target.x - glow.x) * .06;
+    glow.y += (target.y - glow.y) * .06;
+
+    const R = Math.min(Math.max(w, h) * .38, 520);
+    const g = ctx.createRadialGradient(glow.x, glow.y, 0, glow.x, glow.y, R);
+    g.addColorStop(0, `rgba(${GLOW}, .34)`);
+    g.addColorStop(.18, `rgba(${GLOW}, .18)`);
+    g.addColorStop(.5, `rgba(${GLOW}, .07)`);
+    g.addColorStop(1, `rgba(${GLOW}, 0)`);
+    ctx.fillStyle = g;
+    ctx.fillRect(0, 0, w, h);
+
+    const px = (glow.x / w - .5), py = (glow.y / h - .5);
+    for (const s of stars) {
+      s.x += s.vx; s.y += s.vy;
+      if (s.y < -10) { s.y = h + 10; s.x = Math.random() * w; }
+      if (s.x < -10) s.x = w + 10; else if (s.x > w + 10) s.x = -10;
+      const sx = s.x - px * s.depth * 14;
+      const sy = s.y - py * s.depth * 14;
+      const dx = sx - glow.x, dy = sy - glow.y;
+      const dist = Math.hypot(dx, dy) || 1;
+      const near = Math.max(0, 1 - dist / 220);
+      s.ox += ((dx / dist) * near * 18 * s.depth / 3 - s.ox) * .08;
+      s.oy += ((dy / dist) * near * 18 * s.depth / 3 - s.oy) * .08;
+      const twinkle = .55 + .45 * Math.sin(t * s.speed + s.phase);
+      const a = Math.min(1, (.18 + s.depth * .14) * twinkle + near * .7);
+      ctx.fillStyle = near > .05 ? `rgba(255, ${Math.round(255 - near * 30)}, ${Math.round(255 - near * 90)}, ${a})` : `rgba(255, 255, 255, ${a})`;
+      ctx.beginPath();
+      ctx.arc(sx + s.ox, sy + s.oy, s.r + near * 1.2, 0, Math.PI * 2);
+      ctx.fill();
+    }
+  };
+
+  const loop = () => { draw(); raf = requestAnimationFrame(loop); };
+
+  const init = () => {
+    ready = true;
+    resize();
+    window.addEventListener("resize", () => { resize(); if (on && reduceMotion) draw(); });
+    window.addEventListener("pointermove", (e) => {
+      target.x = e.clientX; target.y = e.clientY; target.active = true;
+    }, { passive: true });
+    document.addEventListener("visibilitychange", () => {
+      cancelAnimationFrame(raf);
+      if (on && !document.hidden && !reduceMotion) loop();
+    });
+  };
+
+  return {
+    start() {
+      if (!ready) init();
+      if (on) return;
+      on = true;
+      if (reduceMotion) draw(); else loop();
+    },
+    stop() {
+      on = false;
+      cancelAnimationFrame(raf);
+    },
+  };
+})();
+
+// ---------------------------------------------------------------------------
+// The name across the top: letters rise in, and the size is fitted so the
+// line runs the full width of the page
+// ---------------------------------------------------------------------------
+const bigname = (() => {
   const name = document.getElementById("bigname");
-  name.setAttribute("aria-label", "Priyanshu Singh");
   let i = 0;
   name.querySelectorAll(".word").forEach((word) => {
     word.setAttribute("aria-hidden", "true");
@@ -39,7 +146,6 @@ document.querySelectorAll(".duo span, h3, .sub-title").forEach((el) => {
 
   const fit = () => {
     name.style.fontSize = "100px";
-    // Width of a line = from its first letter's left edge to its last letter's right edge
     const span = (clips) => clips[clips.length - 1].getBoundingClientRect().right - clips[0].getBoundingClientRect().left;
     const words = [...name.querySelectorAll(".word")];
     const stacked = getComputedStyle(words[0]).display === "block";
@@ -49,9 +155,95 @@ document.querySelectorAll(".duo span, h3, .sub-title").forEach((el) => {
     const target = name.clientWidth;
     name.style.fontSize = `${Math.floor(100 * target / lineWidth * 0.995)}px`;
   };
+
+  // Play the letters' rise again, one after another, like a wave
+  const replay = () => {
+    name.querySelectorAll(".ch").forEach((ch) => { ch.style.animation = "none"; });
+    void name.offsetWidth;
+    name.querySelectorAll(".ch").forEach((ch) => { ch.style.animation = ""; });
+  };
+
   fit();
   document.fonts?.ready.then(fit);
+  document.fonts?.addEventListener?.("loadingdone", fit); // a theme's face arriving late
   window.addEventListener("resize", fit);
+  return { fit, replay };
+})();
+
+// ---------------------------------------------------------------------------
+// Themes: light (cream and coral) and dark. The switch spreads the new theme
+// out from the button as a soft wave while the main pieces glide into place.
+// ---------------------------------------------------------------------------
+(() => {
+  const THEMES = {
+    light: { color: "#F6F2EA", icon: "assets/favicon.svg", next: "dark" },
+    dark: { color: "#151312", icon: "assets/favicon-dark.svg", next: "light" },
+  };
+  const themeColor = document.getElementById("themeColor");
+  const favicon = document.getElementById("favicon");
+  const toggles = [...document.querySelectorAll("[data-theme-toggle]")];
+
+  // Both themes' display faces, so the switch never measures a fallback font
+  const fontsLoaded = Promise.all([
+    '700 100px "Oswald"', '400 16px "Outfit"', '700 100px "Funnel Sans"', '400 16px "Poppins"', '700 16px "Poppins"',
+  ].map((f) => document.fonts?.load(f).catch(() => null))).catch(() => null);
+
+  const reflect = (theme) => {
+    const t = THEMES[theme];
+    themeColor.setAttribute("content", t.color);
+    favicon.setAttribute("href", t.icon);
+    toggles.forEach((b) => {
+      const label = `Switch to ${t.next} theme`;
+      b.setAttribute("aria-label", label);
+      if (b.hasAttribute("data-tip")) b.setAttribute("data-tip", t.next === "light" ? "Light theme" : "Dark theme");
+    });
+    if (theme === "dark") sky.start(); else sky.stop();
+  };
+
+  const apply = (theme) => {
+    root.setAttribute("data-theme", theme);
+    try { localStorage.setItem("m2m-theme", theme); } catch (e) { /* private mode */ }
+    reflect(theme);
+    bigname.fit();
+    bigname.replay();
+  };
+
+  // Never hold the switch for slow fonts: wait at most 0.6s, refit when they land
+  const fontsOrTimeout = () => Promise.race([fontsLoaded, new Promise((r) => setTimeout(r, 600))]);
+  let busy = false;
+
+  const switchTheme = (button) => {
+    if (busy) return; // let one switch finish before the next
+    const next = THEMES[root.getAttribute("data-theme")]?.next || "dark";
+
+    if (reduceMotion) { apply(next); return; }
+
+    if (!document.startViewTransition) {
+      root.classList.add("theme-fade");
+      apply(next);
+      setTimeout(() => root.classList.remove("theme-fade"), 750);
+      return;
+    }
+
+    // The wave starts at the button and reaches the farthest corner
+    const r = button.getBoundingClientRect();
+    const x = r.left + r.width / 2, y = r.top + r.height / 2;
+    const end = Math.hypot(Math.max(x, innerWidth - x), Math.max(y, innerHeight - y)) + 200;
+    root.style.setProperty("--vt-x", `${x}px`);
+    root.style.setProperty("--vt-y", `${y}px`);
+    root.style.setProperty("--vt-end", `${end}px`);
+
+    busy = true;
+    root.classList.add("theme-anim");
+    const vt = document.startViewTransition(async () => {
+      await fontsOrTimeout();
+      apply(next);
+    });
+    vt.finished.catch(() => {}).finally(() => { root.classList.remove("theme-anim"); busy = false; });
+  };
+
+  toggles.forEach((b) => b.addEventListener("click", () => switchTheme(b)));
+  reflect(root.getAttribute("data-theme") === "dark" ? "dark" : "light");
 })();
 
 // ---------------------------------------------------------------------------
@@ -60,11 +252,10 @@ document.querySelectorAll(".duo span, h3, .sub-title").forEach((el) => {
 (() => {
   if (!window.matchMedia("(hover: hover) and (pointer: fine)").matches) return;
   const lens = document.getElementById("lens");
-  const instant = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   let x = 0, y = 0, lx = 0, ly = 0, running = false;
   const step = () => {
-    lx += (x - lx) * (instant ? 1 : .3);
-    ly += (y - ly) * (instant ? 1 : .3);
+    lx += (x - lx) * (reduceMotion ? 1 : .3);
+    ly += (y - ly) * (reduceMotion ? 1 : .3);
     lens.style.transform = `translate3d(${lx}px, ${ly}px, 0)`;
     running = Math.abs(x - lx) > .1 || Math.abs(y - ly) > .1;
     if (running) requestAnimationFrame(step);
@@ -80,6 +271,26 @@ document.querySelectorAll(".duo span, h3, .sub-title").forEach((el) => {
     lens.classList.toggle("off", !!e.target.closest("img, picture, .profile-photo, .project-thumb, .demo-thumb"));
   });
 })();
+
+// ---------------------------------------------------------------------------
+// Dock (dark theme): highlight the section on screen
+// ---------------------------------------------------------------------------
+const dockLinks = [...document.querySelectorAll("#dock a")];
+const dockTargets = dockLinks
+  .map((a) => [a, a.getAttribute("href") === "#top" ? document.getElementById("home") : document.querySelector(a.getAttribute("href"))])
+  .filter(([, el]) => el);
+const dockObserver = new IntersectionObserver((entries) => {
+  entries.forEach((entry) => {
+    if (!entry.isIntersecting) return;
+    dockTargets.forEach(([a, el]) => a.classList.toggle("active", el === entry.target));
+  });
+}, { rootMargin: "-45% 0px -50% 0px" });
+dockTargets.forEach(([, el]) => dockObserver.observe(el));
+const homeAtTop = () => {
+  if (window.scrollY < 200) dockLinks.forEach((a) => a.classList.toggle("active", a.getAttribute("href") === "#top"));
+};
+window.addEventListener("scroll", homeAtTop, { passive: true });
+homeAtTop();
 
 // ---------------------------------------------------------------------------
 // Reveal on scroll, staggered within each group
@@ -120,7 +331,6 @@ window.addEventListener("scroll", () => {
 // ---------------------------------------------------------------------------
 const track = document.getElementById("track");
 const trackStops = [...track.querySelectorAll(".track-stops li")];
-const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 const vertical = window.matchMedia("(max-width: 600px)");
 const setTrack = (p) => {
   track.style.setProperty("--p", p.toFixed(3));
@@ -134,8 +344,6 @@ if (reduceMotion) {
     trackQueued = false;
     const r = track.getBoundingClientRect();
     const vh = window.innerHeight;
-    // Horizontal: fill while the track moves through the middle of the screen.
-    // Vertical: fill in step with how much of the list has passed the 70% line.
     const p = vertical.matches ? (vh * 0.7 - r.top) / r.height : (vh * 0.85 - r.top) / (vh * 0.45);
     setTrack(Math.min(Math.max(p, 0), 1));
   };
@@ -178,7 +386,7 @@ form.addEventListener("submit", async (e) => {
     return;
   }
 
-  const button = form.querySelector("button");
+  const button = form.querySelector("button[type=submit], .submit");
   button.disabled = true;
   setNote("Sending…");
   try {

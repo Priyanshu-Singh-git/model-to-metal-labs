@@ -1,5 +1,5 @@
 /* ==========================================================================
-   M2M Labs (Model to Metal) — cream and coral, condensed display type,
+   LIGHT THEME · M2M Labs — cream and coral, condensed display type,
    outlined components, faint column lines
    ========================================================================== */
 
@@ -414,8 +414,6 @@ svg { fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round
 }
 
 @media (max-width: 600px) {
-  .bigname { white-space: normal; line-height: .84; }
-  .bigname .word { display: block; white-space: nowrap; }
   .topnav { grid-template-columns: 1fr; padding-bottom: 3.5rem; }
   .topnav-links { gap: .5rem 1.5rem; }
   .topnav .pill { justify-self: start; }

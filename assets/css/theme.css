@@ -1,0 +1,154 @@
+/* ==========================================================================
+   Shared across both themes: what each theme shows, the theme switch,
+   the brand line under the name, and the switch transition.
+   Light = cream and coral (src/light.css) · Dark = sawad (src/dark.css)
+   ========================================================================== */
+
+/* ---------- pieces that belong to one theme ---------- */
+html[data-theme="light"] .sky,
+html[data-theme="light"] .dock { display: none; }
+html[data-theme="dark"] .columns,
+html[data-theme="dark"] .topnav { display: none; }
+
+/* ---------- brand line under the big name ---------- */
+.bigname .brandline {
+  display: block;
+  margin-top: clamp(.7rem, 1.3vw, 1.2rem);
+  font-size: clamp(.78rem, 1.05vw, 1rem);
+  font-weight: 500;
+  line-height: 1.4;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  white-space: normal;
+}
+html[data-theme="light"] .bigname .brandline { font-family: var(--sans); color: var(--ink-soft); }
+html[data-theme="dark"] .bigname .brandline { font-family: var(--sans); color: var(--muted); letter-spacing: .2em; }
+.brandline b { font-weight: 600; }
+html[data-theme="light"] .brandline b { color: var(--coral); }
+html[data-theme="dark"] .brandline b { color: var(--accent); }
+
+/* ---------- the hero button carries both themes' classes ---------- */
+html[data-theme="dark"] .btn-primary { gap: .55rem; }
+html[data-theme="dark"] .btn-primary svg { width: 18px; height: 18px; stroke-width: 2; transition: transform .3s var(--ease); }
+@media (hover: hover) { html[data-theme="dark"] .btn-primary:hover svg { transform: translate(2px, -2px); } }
+
+/* ---------- theme switch: a sun that becomes a moon ---------- */
+.theme-toggle {
+  position: relative;
+  display: grid; place-items: center;
+  padding: 0; cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+.theme-toggle svg { width: 22px; height: 22px; overflow: visible; }
+.tt-core, .tt-cut, .tt-rays { transform-box: fill-box; transform-origin: center; transition: transform .7s cubic-bezier(.34, 1.4, .5, 1), opacity .45s ease; }
+.tt-core { fill: currentColor; stroke: none; }
+.tt-rays { stroke-width: 1.9; }
+/* light theme shows a moon (switch to dark) */
+html[data-theme="light"] .tt-core { transform: scale(1.5); }
+html[data-theme="light"] .tt-cut { transform: translate(-7px, 3.5px); }
+html[data-theme="light"] .tt-rays { opacity: 0; transform: scale(.4) rotate(-60deg); }
+/* dark theme shows a sun (switch to light) */
+html[data-theme="dark"] .tt-core { transform: scale(1); }
+html[data-theme="dark"] .tt-cut { transform: translate(0, 0); }
+html[data-theme="dark"] .tt-rays { opacity: 1; transform: none; }
+
+/* in the light theme it is an outlined coral circle, beside "Start a project" */
+.topnav-actions { display: flex; align-items: center; gap: .6rem; justify-self: end; }
+html[data-theme="light"] .topnav .theme-toggle {
+  width: 3rem; height: 3rem; border-radius: 50%;
+  border: 2px solid var(--coral); background: transparent; color: var(--ink);
+  transition: background-color .25s ease, color .25s ease, transform .16s var(--ease);
+}
+html[data-theme="light"] .topnav .theme-toggle:active { transform: scale(.94); }
+@media (hover: hover) {
+  html[data-theme="light"] .topnav .theme-toggle:hover { background: var(--ink); border-color: var(--ink); color: var(--bg); }
+  html[data-theme="light"] .topnav .theme-toggle:hover .tt-core { transform: scale(1.5) rotate(-18deg); }
+}
+@media (max-width: 600px) { .topnav-actions { justify-self: start; } }
+
+/* in the dark theme it is one more key in the dock, after a hairline */
+html[data-theme="dark"] .dock .theme-toggle {
+  width: 2.75rem; height: 2.75rem; border-radius: 10px;
+  border: 0; background: transparent; color: var(--accent);
+  margin-left: .35rem;
+  transition: color .2s ease, background-color .2s ease, transform .16s var(--ease);
+}
+html[data-theme="dark"] .dock .theme-toggle::before {
+  content: ""; position: absolute; left: -.3rem; top: 22%; bottom: 22%;
+  width: 1px; background: var(--surface-2);
+}
+html[data-theme="dark"] .dock .theme-toggle:active { transform: scale(.94); }
+html[data-theme="dark"] .dock .theme-toggle::after {
+  content: attr(data-tip);
+  position: absolute; top: calc(100% + .5rem); left: 50%;
+  transform: translate(-50%, -4px);
+  padding: .3rem .6rem; border-radius: 8px;
+  background: var(--text); color: var(--card-ink);
+  font-size: .8125rem; font-weight: 500; white-space: nowrap;
+  opacity: 0; pointer-events: none;
+  transition: opacity .15s ease, transform .2s var(--ease);
+}
+@media (hover: hover) and (pointer: fine) {
+  html[data-theme="dark"] .dock .theme-toggle:hover { background: var(--surface-2); color: var(--accent-hover); }
+  html[data-theme="dark"] .dock .theme-toggle:hover::after { opacity: 1; transform: translate(-50%, 0); }
+  html[data-theme="dark"] .dock .theme-toggle:hover .tt-rays { transform: rotate(45deg); }
+}
+@media (max-width: 600px) {
+  /* nine keys must fit a 360px phone */
+  html[data-theme="dark"] .dock { gap: 0; padding: .25rem; max-width: calc(100vw - 1rem); }
+  html[data-theme="dark"] .dock a,
+  html[data-theme="dark"] .dock .theme-toggle { width: 2.3rem; height: 2.3rem; }
+  html[data-theme="dark"] .dock a svg { width: 18px; height: 18px; }
+  html[data-theme="dark"] .dock .theme-toggle { margin-left: .3rem; }
+  html[data-theme="dark"] .dock .theme-toggle::after { display: none; }
+}
+
+/* ==========================================================================
+   The switch: a soft wave of the new theme spreads out from the switch,
+   while the main pieces glide to their new places one after another
+   ========================================================================== */
+@property --vt-r { syntax: "<length>"; inherits: false; initial-value: 0px; }
+
+:root { --vt-ease: cubic-bezier(.65, .05, .25, 1); --vt-x: 50%; --vt-y: 0%; --vt-end: 150vmax; }
+
+::view-transition-old(root),
+::view-transition-new(root) { animation: none; mix-blend-mode: normal; }
+::view-transition-old(root) { z-index: 1; }
+::view-transition-new(root) {
+  z-index: 2;
+  -webkit-mask-image: radial-gradient(circle at var(--vt-x) var(--vt-y), #000 calc(var(--vt-r) - 160px), rgba(0,0,0,.55) calc(var(--vt-r) - 60px), transparent var(--vt-r));
+          mask-image: radial-gradient(circle at var(--vt-x) var(--vt-y), #000 calc(var(--vt-r) - 160px), rgba(0,0,0,.55) calc(var(--vt-r) - 60px), transparent var(--vt-r));
+  animation: vt-wave 1.25s var(--vt-ease) both;
+}
+@keyframes vt-wave { from { --vt-r: 0px; } to { --vt-r: var(--vt-end); } }
+
+/* named pieces: each glides from its old place and look to the new one */
+html.theme-anim .bigname       { view-transition-name: vt-name; }
+html.theme-anim .topnav        { view-transition-name: vt-topnav; }
+html.theme-anim .dock          { view-transition-name: vt-dock; }
+html.theme-anim .profile-card  { view-transition-name: vt-card; }
+html.theme-anim .hero .duo     { view-transition-name: vt-duo; }
+html.theme-anim .hero .lead    { view-transition-name: vt-lead; }
+html.theme-anim .hero-actions  { view-transition-name: vt-actions; }
+html.theme-anim .hero .demos   { view-transition-name: vt-demos; }
+
+::view-transition-group(*) { animation-duration: 1s; animation-timing-function: var(--vt-ease); animation-fill-mode: both; }
+::view-transition-old(*):not(:only-child),
+::view-transition-new(*):not(:only-child) { animation-duration: .7s; animation-fill-mode: both; }
+::view-transition-group(vt-name),   ::view-transition-old(vt-name),   ::view-transition-new(vt-name)   { animation-delay: 0ms; }
+::view-transition-group(vt-topnav), ::view-transition-old(vt-topnav), ::view-transition-new(vt-topnav),
+::view-transition-group(vt-dock),   ::view-transition-old(vt-dock),   ::view-transition-new(vt-dock)   { animation-delay: 70ms; }
+::view-transition-group(vt-card),   ::view-transition-old(vt-card),   ::view-transition-new(vt-card)   { animation-delay: 140ms; }
+::view-transition-group(vt-duo),    ::view-transition-old(vt-duo),    ::view-transition-new(vt-duo)    { animation-delay: 190ms; }
+::view-transition-group(vt-lead),   ::view-transition-old(vt-lead),   ::view-transition-new(vt-lead)   { animation-delay: 240ms; }
+::view-transition-group(vt-actions),::view-transition-old(vt-actions),::view-transition-new(vt-actions){ animation-delay: 290ms; }
+::view-transition-group(vt-demos),  ::view-transition-old(vt-demos),  ::view-transition-new(vt-demos)  { animation-delay: 340ms; }
+
+/* browsers without view transitions: a calm colour fade instead */
+html.theme-fade, html.theme-fade * {
+  transition: background-color .7s ease, color .7s ease, border-color .7s ease, fill .7s ease !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*), ::view-transition-old(*), ::view-transition-new(*) { animation: none !important; }
+}
