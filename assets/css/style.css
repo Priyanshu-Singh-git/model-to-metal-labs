@@ -52,18 +52,6 @@ svg { fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round
 /* ---------- interactive background ---------- */
 .sky { position: fixed; inset: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; }
 .page { position: relative; z-index: 1; }
-.cursor-ring {
-  position: fixed; left: 0; top: 0; z-index: 9999;
-  width: 34px; height: 34px; margin: -17px 0 0 -17px;
-  border: 1.5px solid #fff; border-radius: 50%;
-  mix-blend-mode: difference;
-  pointer-events: none; opacity: 0;
-  transition: width .25s var(--ease), height .25s var(--ease), margin .25s var(--ease), opacity .3s ease, background-color .25s ease;
-  will-change: transform;
-}
-.cursor-ring.on { opacity: 1; }
-.cursor-ring.big { width: 64px; height: 64px; margin: -32px 0 0 -32px; background: #fff; }
-@media (hover: none), (pointer: coarse) { .cursor-ring { display: none; } }
 
 /* ---------- icon dock ---------- */
 .dock {

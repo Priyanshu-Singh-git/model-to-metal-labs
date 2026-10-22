@@ -15,7 +15,7 @@ document.documentElement.classList.add("js");
 
 // ---------------------------------------------------------------------------
 // Background: drifting stars at three depths, a warm glow that eases after the
-// pointer, stars that brighten and step aside near it, and a ring cursor
+// pointer, and stars that brighten and step aside near it
 // ---------------------------------------------------------------------------
 (() => {
   const canvas = document.getElementById("sky");
@@ -112,22 +112,6 @@ document.documentElement.classList.add("js");
     if (!document.hidden) loop();
   });
   loop();
-
-  // Ring cursor (mouse and trackpad only): follows closely, grows over links
-  if (!finePointer) return;
-  const ring = document.getElementById("cursorRing");
-  let rx = 0, ry = 0, mx = 0, my = 0;
-  window.addEventListener("pointermove", (e) => { mx = e.clientX; my = e.clientY; ring.classList.add("on"); }, { passive: true });
-  document.documentElement.addEventListener("mouseleave", () => ring.classList.remove("on"));
-  document.addEventListener("pointerover", (e) => {
-    ring.classList.toggle("big", !!e.target.closest("a, button, select, input, textarea, summary, .demo"));
-  });
-  const follow = () => {
-    rx += (mx - rx) * .25; ry += (my - ry) * .25;
-    ring.style.transform = `translate3d(${rx}px, ${ry}px, 0)`;
-    requestAnimationFrame(follow);
-  };
-  follow();
 })();
 
 // ---------------------------------------------------------------------------
