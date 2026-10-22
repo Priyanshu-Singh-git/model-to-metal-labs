@@ -167,8 +167,9 @@ document.documentElement.classList.add("js");
     if (!running) { running = true; requestAnimationFrame(step); }
   }, { passive: true });
   document.documentElement.addEventListener("mouseleave", () => lens.classList.remove("on"));
+  // Photos stay untouched: the lens hides while the pointer is over one
   document.addEventListener("pointerover", (e) => {
-    lens.classList.toggle("big", !!e.target.closest("a, button, summary, .bigname, .duo, img"));
+    lens.classList.toggle("off", !!e.target.closest("img, picture, .profile-photo, .project-thumb, .demo-thumb"));
   });
 })();
 
