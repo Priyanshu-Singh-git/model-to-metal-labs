@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>M2M Labs — Model2Metal | Applied AI Studio</title>
   <meta name="description" content="M2M Labs is an applied AI studio that designs, builds and deploys AI end to end: computer vision, robotics and autonomy, audio and sensor intelligence, edge deployment and state-of-the-art R&amp;D. Rated 5.0 on every reviewed engagement." />
-  <meta name="theme-color" content="#F6F2EA" />
+  <meta name="theme-color" content="#151312" />
 
   <meta property="og:type" content="website" />
   <meta property="og:title" content="M2M Labs — Model2Metal | Applied AI Studio" />
@@ -17,30 +17,45 @@
   <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Outfit:wght@400;500;600&family=Playfair+Display:ital,wght@1,700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="assets/css/style.css?v=20261022c" />
+  <link href="https://fonts.googleapis.com/css2?family=Funnel+Sans:wght@700&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/style.css?v=20261022s2" />
 </head>
 <body>
   <svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol id="star" viewBox="0 0 24 24"><path d="m12 2.8 2.8 5.8 6.3.9-4.6 4.4 1.1 6.3L12 17.2l-5.6 3 1.1-6.3L2.9 9.5l6.3-.9z"/></symbol></svg>
-  <!-- Background: faint column lines, like a layout grid left visible -->
-  <div class="columns" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></div>
+  <!-- Interactive background: drifting stars with a glow that follows the pointer -->
+  <canvas class="sky" id="sky" aria-hidden="true"></canvas>
   <div class="lens" id="lens" aria-hidden="true"></div>
 
+  <!-- Icon dock -->
+  <nav class="dock" id="dock" aria-label="Primary">
+    <a href="#top" data-tip="Home" aria-label="Home" class="active">
+      <svg viewBox="0 0 24 24"><path d="M4 10.5 12 4l8 6.5V20a1 1 0 0 1-1 1h-4.5v-6h-5v6H5a1 1 0 0 1-1-1z"/></svg>
+    </a>
+    <a href="#record" data-tip="Track record" aria-label="Track record">
+      <svg viewBox="0 0 24 24"><path d="m12 3.5 2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.8l-5.2 2.8 1-5.8-4.3-4.1 5.9-.9z"/></svg>
+    </a>
+    <a href="#process" data-tip="Process" aria-label="Process">
+      <svg viewBox="0 0 24 24"><path d="M4 6h10M4 12h16M4 18h7"/><circle cx="17" cy="6" r="2"/><circle cx="14" cy="18" r="2"/></svg>
+    </a>
+    <a href="#services" data-tip="Services" aria-label="Services">
+      <svg viewBox="0 0 24 24"><path d="m12 3 9 5-9 5-9-5z"/><path d="m3 13 9 5 9-5"/></svg>
+    </a>
+    <a href="#work" data-tip="Work" aria-label="Work">
+      <svg viewBox="0 0 24 24"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+    </a>
+    <a href="#case" data-tip="Case study" aria-label="Case study">
+      <svg viewBox="0 0 24 24"><rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/></svg>
+    </a>
+    <a href="#about" data-tip="Studio" aria-label="Studio">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>
+    </a>
+    <a href="#contact" data-tip="Start a project" aria-label="Start a project">
+      <svg viewBox="0 0 24 24"><path d="M4 20h4L19 9a2.8 2.8 0 0 0-4-4L4 16z"/><path d="m13.5 6.5 4 4"/></svg>
+    </a>
+  </nav>
 
   <div class="page" id="top">
     <h1 class="bigname" id="bigname"><span class="word">priyanshu</span> <span class="word">singh</span></h1>
-
-    <nav class="topnav" aria-label="Primary">
-      <div class="topnav-links">
-        <a href="#record">Track record</a>
-        <a href="#process">Process</a>
-        <a href="#services">Services</a>
-        <a href="#work">Work</a>
-        <a href="#about">Studio</a>
-      </div>
-      <a class="topnav-mail" href="mailto:singhpriyaanshu308@gmail.com">singhpriyaanshu308@gmail.com</a>
-      <a class="pill" href="#contact">Start a project <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></a>
-    </nav>
 
     <!-- Profile card (sticky on desktop) -->
     <aside class="profile">
@@ -85,7 +100,7 @@
         <p class="lead reveal">M2M Labs takes AI from the research paper to the chip it runs on. Vision, robotics, audio and sensor systems, built and deployed end to end, from cloud to embedded devices.</p>
 
         <div class="hero-actions reveal">
-          <a href="#contact" class="pill pill-solid">Start a project <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></a>
+          <a href="#contact" class="btn-primary">Start a project</a>
           <a href="https://www.upwork.com/freelancers/~0172854895b0a49f5f" target="_blank" rel="noopener" class="proof">
             <span class="stars" aria-hidden="true"><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg></span>
             <span><strong>5.0 on every reviewed job</strong> · 100% Job Success on Upwork</span>
@@ -444,6 +459,6 @@
     </main>
   </div>
 
-  <script src="assets/js/main.js?v=20261022c"></script>
+  <script src="assets/js/main.js?v=20261022s2"></script>
 </body>
 </html>
