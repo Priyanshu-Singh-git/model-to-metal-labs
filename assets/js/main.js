@@ -29,6 +29,7 @@ window.addEventListener("scroll", onScroll, { passive: true });
 const setMenu = (open) => {
   navLinks.classList.toggle("open", open);
   nav.classList.toggle("menu-open", open);
+  document.body.style.overflow = open ? "hidden" : "";
   navToggle.setAttribute("aria-expanded", String(open));
   navToggle.setAttribute("aria-label", open ? "Close menu" : "Open menu");
 };
@@ -64,27 +65,41 @@ const revealObserver = new IntersectionObserver((entries) => {
 }, { rootMargin: "0px 0px -8% 0px", threshold: 0.08 });
 revealEls.forEach((el) => revealObserver.observe(el));
 
-// ---------------------------------------------------------------------------
-// Count-up for hero numbers
-// ---------------------------------------------------------------------------
-if (!reduceMotion) {
-  document.querySelectorAll(".count").forEach((el) => {
-    const to = Number(el.dataset.to);
-    const start = performance.now();
-    const dur = 1800;
-    el.textContent = "0";
-    const tick = (now) => {
-      const t = Math.min((now - start) / dur, 1);
-      el.textContent = Math.round(to * (1 - Math.pow(1 - t, 3)));
-      if (t < 1) requestAnimationFrame(tick);
-    };
-    setTimeout(() => requestAnimationFrame(tick), 500);
+// A jump (nav link, fast fling) can skip past elements without them ever intersecting;
+// reveal anything that is already above the bottom of the screen.
+let revealQueued = false;
+const revealPassed = () => {
+  revealQueued = false;
+  document.querySelectorAll(".reveal:not(.in)").forEach((el) => {
+    if (el.getBoundingClientRect().top < window.innerHeight) {
+      el.classList.add("in");
+      revealObserver.unobserve(el);
+    }
   });
-}
+};
+window.addEventListener("scroll", () => {
+  if (!revealQueued) { revealQueued = true; requestAnimationFrame(revealPassed); }
+}, { passive: true });
 
 // ---------------------------------------------------------------------------
-// Soft spotlight following the cursor on service cards
+// Pointer light: brightens the background grid and service cards under the cursor
 // ---------------------------------------------------------------------------
+const finePointer = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+if (finePointer && !reduceMotion) {
+  const glow = document.querySelector(".grid-glow");
+  let px = 0, py = 0, queued = false;
+  window.addEventListener("pointermove", (e) => {
+    px = e.clientX; py = e.clientY;
+    if (queued) return;
+    queued = true;
+    requestAnimationFrame(() => {
+      glow.style.setProperty("--gx", `${px}px`);
+      glow.style.setProperty("--gy", `${py}px`);
+      queued = false;
+    });
+  }, { passive: true });
+}
+
 document.querySelectorAll(".service").forEach((card) => {
   card.addEventListener("pointermove", (e) => {
     const r = card.getBoundingClientRect();
@@ -94,78 +109,24 @@ document.querySelectorAll(".service").forEach((card) => {
 });
 
 // ---------------------------------------------------------------------------
-// Ambient field: slow-drifting nodes with faint links, like a sensor mesh
+// Email bar: copy the address, and step aside while the contact section is on screen
 // ---------------------------------------------------------------------------
-(() => {
-  const canvas = document.getElementById("field");
-  const ctx = canvas.getContext("2d");
-  let w, h, dpr, nodes = [];
-  const pointer = { x: -9999, y: -9999 };
-
-  const resize = () => {
-    dpr = Math.min(window.devicePixelRatio || 1, 2);
-    w = window.innerWidth;
-    h = window.innerHeight;
-    canvas.width = w * dpr;
-    canvas.height = h * dpr;
-    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    // denser, more visible mesh on desktop; lighter on small screens
-    const desktop = w >= 1024;
-    const count = Math.round(desktop ? Math.min(110, (w * h) / 12500) : Math.min(45, (w * h) / 20000));
-    nodes = Array.from({ length: count }, () => ({
-      x: Math.random() * w,
-      y: Math.random() * h,
-      vx: (Math.random() - 0.5) * 0.12,
-      vy: (Math.random() - 0.5) * 0.12,
-      r: Math.random() * 1.3 + (desktop ? 0.7 : 0.5),
-    }));
-  };
-
-  const desktopLines = window.innerWidth >= 1024;
-  const LINK = desktopLines ? 165 : 135;
-  const draw = () => {
-    ctx.clearRect(0, 0, w, h);
-    for (const n of nodes) {
-      n.x += n.vx; n.y += n.vy;
-      if (n.x < -20) n.x = w + 20; else if (n.x > w + 20) n.x = -20;
-      if (n.y < -20) n.y = h + 20; else if (n.y > h + 20) n.y = -20;
-    }
-    for (let i = 0; i < nodes.length; i++) {
-      const a = nodes[i];
-      for (let j = i + 1; j < nodes.length; j++) {
-        const b = nodes[j];
-        const dx = a.x - b.x, dy = a.y - b.y;
-        const d2 = dx * dx + dy * dy;
-        if (d2 < LINK * LINK) {
-          const o = (1 - Math.sqrt(d2) / LINK) * 0.22;
-          ctx.strokeStyle = `rgba(14,120,110,${o})`;
-          ctx.lineWidth = 0.7;
-          ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke();
-        }
-      }
-      const pd = Math.hypot(a.x - pointer.x, a.y - pointer.y);
-      const glow = pd < 180 ? (1 - pd / 180) : 0;
-      ctx.fillStyle = `rgba(25,95,110,${0.32 + glow * 0.45})`;
-      ctx.beginPath(); ctx.arc(a.x, a.y, a.r + glow * 1.2, 0, Math.PI * 2); ctx.fill();
-    }
-  };
-
-  let raf;
-  const loop = () => { draw(); raf = requestAnimationFrame(loop); };
-
-  resize();
-  window.addEventListener("resize", () => { resize(); if (reduceMotion) draw(); });
-  window.addEventListener("pointermove", (e) => { pointer.x = e.clientX; pointer.y = e.clientY; }, { passive: true });
-
-  if (reduceMotion) {
-    draw();
-  } else {
-    loop();
-    document.addEventListener("visibilitychange", () => {
-      if (document.hidden) cancelAnimationFrame(raf); else loop();
-    });
+const mailBar = document.getElementById("mailBar");
+const mailCopy = document.getElementById("mailCopy");
+let copiedTimer;
+mailCopy.addEventListener("click", async () => {
+  try {
+    await navigator.clipboard.writeText(CONFIG.contactEmail);
+    mailCopy.classList.add("copied");
+    clearTimeout(copiedTimer);
+    copiedTimer = setTimeout(() => mailCopy.classList.remove("copied"), 1600);
+  } catch {
+    window.location.href = `mailto:${CONFIG.contactEmail}`;
   }
-})();
+});
+new IntersectionObserver(([entry]) => {
+  mailBar.classList.toggle("hidden", entry.isIntersecting);
+}, { threshold: 0.15 }).observe(document.getElementById("contact"));
 
 // ---------------------------------------------------------------------------
 // Contact form: posts to formEndpoint if set, otherwise opens an email draft
