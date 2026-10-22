@@ -27,6 +27,12 @@ const dockObserver = new IntersectionObserver((entries) => {
   });
 }, { rootMargin: "-45% 0px -50% 0px" });
 dockTargets.forEach(([, el]) => dockObserver.observe(el));
+// On phones the profile card sits above the hero, so the top of the page counts as Home.
+const homeAtTop = () => {
+  if (window.scrollY < 200) dockLinks.forEach((a) => a.classList.toggle("active", a.getAttribute("href") === "#top"));
+};
+window.addEventListener("scroll", homeAtTop, { passive: true });
+homeAtTop();
 
 // ---------------------------------------------------------------------------
 // Reveal on scroll, staggered within each group
