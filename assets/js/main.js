@@ -22,7 +22,7 @@ document.documentElement.classList.add("js");
   const ctx = canvas.getContext("2d");
   const still = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   const finePointer = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
-  const GLOW = [244, 108, 56]; // --orange
+  const GLOW = [201, 164, 106]; // --accent (brass)
   let w = 0, h = 0, dpr = 1, stars = [], raf = 0, t = 0;
 
   // Where the pointer is (target) and where the glow is drawn (eased towards it)
@@ -66,8 +66,8 @@ document.documentElement.classList.add("js");
     // The glow: a soft warm light, wide and faint, with a brighter core
     const R = Math.min(Math.max(w, h) * .38, 520);
     const g = ctx.createRadialGradient(glow.x, glow.y, 0, glow.x, glow.y, R);
-    g.addColorStop(0, `rgba(${GLOW}, .42)`);
-    g.addColorStop(.18, `rgba(${GLOW}, .24)`);
+    g.addColorStop(0, `rgba(${GLOW}, .34)`);
+    g.addColorStop(.18, `rgba(${GLOW}, .18)`);
     g.addColorStop(.5, `rgba(${GLOW}, .07)`);
     g.addColorStop(1, `rgba(${GLOW}, 0)`);
     ctx.fillStyle = g;
@@ -90,7 +90,7 @@ document.documentElement.classList.add("js");
 
       const twinkle = .55 + .45 * Math.sin(t * s.speed + s.phase);
       const a = Math.min(1, (.18 + s.depth * .14) * twinkle + near * .7);
-      ctx.fillStyle = near > .05 ? `rgba(255, ${Math.round(255 - near * 90)}, ${Math.round(255 - near * 160)}, ${a})` : `rgba(255, 255, 255, ${a})`;
+      ctx.fillStyle = near > .05 ? `rgba(255, ${Math.round(255 - near * 30)}, ${Math.round(255 - near * 90)}, ${a})` : `rgba(255, 255, 255, ${a})`;
       ctx.beginPath();
       ctx.arc(sx + s.ox, sy + s.oy, s.r + near * 1.2, 0, Math.PI * 2);
       ctx.fill();
