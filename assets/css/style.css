@@ -241,13 +241,25 @@ svg { fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round
 .row-arrow svg { width: 20px; height: 20px; }
 @media (hover: hover) { .row-arrow:hover { transform: translate(2px, -2px); background: var(--surface-2); } }
 
-/* ---------- process ---------- */
-.steps { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
-.step { background: var(--surface); border-radius: var(--radius-sm); padding: 1.5rem; }
-.step-n { display: block; font-size: 2.5rem; font-weight: 700; line-height: 1; color: var(--orange); margin-bottom: 1.5rem; }
-.step:nth-child(even) .step-n { color: var(--lime); }
-.step h3 { font-size: 1.25rem; font-weight: 600; margin-bottom: .35rem; }
-.step p { color: var(--muted); font-size: .9375rem; }
+/* ---------- process: a track from model to metal ---------- */
+.track { --p: 0; position: relative; }
+.track-ends { display: flex; justify-content: space-between; margin-bottom: .9rem; font-size: 1.125rem; font-weight: 700; text-transform: uppercase; letter-spacing: .02em; }
+.track-ends span:first-child { color: var(--text); }
+.track-ends span:last-child { color: var(--orange); }
+.track-line { position: relative; height: 4px; border-radius: 4px; background: var(--surface-2); }
+.track-fill { position: absolute; inset: 0 auto 0 0; width: 100%; border-radius: inherit; background: var(--orange); transform: scaleX(var(--p)); transform-origin: left; }
+.track-stops { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1.5rem; margin-top: -10px; }
+.track-stops li { position: relative; padding-top: 2.25rem; }
+.stop {
+  position: absolute; top: 0; left: 0;
+  width: 16px; height: 16px; border-radius: 50%;
+  background: var(--bg); border: 3px solid var(--surface-2);
+  transition: border-color .3s ease, background-color .3s ease, transform .3s var(--ease);
+}
+.track-stops li.on .stop { border-color: var(--orange); background: var(--orange); transform: scale(1.15); }
+.track-stops h3 { font-size: 1.25rem; font-weight: 600; letter-spacing: -.01em; margin-bottom: .4rem; transition: color .3s ease; color: var(--muted); }
+.track-stops li.on h3 { color: var(--text); }
+.track-stops p { font-size: .9375rem; color: var(--muted); }
 
 /* ---------- services ---------- */
 .services { display: grid; gap: .5rem; }
@@ -402,6 +414,16 @@ svg { fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round
 }
 
 @media (max-width: 600px) {
+  .track { display: flex; flex-direction: column; }
+  .track-ends { display: contents; }
+  .track-ends span { font-size: 1rem; padding-left: 2.25rem; }
+  .track-ends span:last-child { order: 3; margin-top: .25rem; }
+  .track-line { display: none; }
+  .track-stops { order: 2; grid-template-columns: 1fr; gap: 1.75rem; margin: 1.25rem 0; position: relative; }
+  .track-stops::before, .track-stops::after { content: ""; position: absolute; left: 6px; top: 0; bottom: 0; width: 4px; border-radius: 4px; background: var(--surface-2); }
+  .track-stops::after { background: var(--orange); transform: scaleY(var(--p)); transform-origin: top; }
+  .track-stops li { padding: 0 0 0 2.25rem; }
+  .track-stops .stop { left: 0; top: .3rem; z-index: 1; }
   .dock { top: .75rem; gap: .1rem; padding: .3rem; }
   .dock a { width: 2.5rem; height: 2.5rem; }
   .dock a::after { display: none; }
@@ -410,7 +432,7 @@ svg { fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round
   .demo-grid { grid-template-columns: 1fr 1fr; gap: 1rem .75rem; }
   .hero-actions { flex-direction: column; align-items: flex-start; }
   .btn-primary { width: 100%; justify-content: center; }
-  .steps, .case-split, .facts, .tools, .contact-form { grid-template-columns: 1fr; }
+  .case-split, .facts, .tools, .contact-form { grid-template-columns: 1fr; }
   .row { flex-direction: column; gap: .5rem; }
   .row h3 { font-size: 1.375rem; }
   .project { grid-template-columns: 1fr; gap: 1rem; }

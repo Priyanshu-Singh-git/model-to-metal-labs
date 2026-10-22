@@ -69,6 +69,37 @@ window.addEventListener("scroll", () => {
 }, { passive: true });
 
 // ---------------------------------------------------------------------------
+// Process track: the line fills from Model to Metal as the section scrolls by
+// ---------------------------------------------------------------------------
+const track = document.getElementById("track");
+const trackStops = [...track.querySelectorAll(".track-stops li")];
+const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+const vertical = window.matchMedia("(max-width: 600px)");
+const setTrack = (p) => {
+  track.style.setProperty("--p", p.toFixed(3));
+  trackStops.forEach((li, i) => li.classList.toggle("on", p >= (vertical.matches ? i / trackStops.length : i / (trackStops.length - 1) * 0.75) + 0.02));
+};
+if (reduceMotion) {
+  setTrack(1);
+} else {
+  let trackQueued = false;
+  const updateTrack = () => {
+    trackQueued = false;
+    const r = track.getBoundingClientRect();
+    const vh = window.innerHeight;
+    // Horizontal: fill while the track moves through the middle of the screen.
+    // Vertical: fill in step with how much of the list has passed the 70% line.
+    const p = vertical.matches ? (vh * 0.7 - r.top) / r.height : (vh * 0.85 - r.top) / (vh * 0.45);
+    setTrack(Math.min(Math.max(p, 0), 1));
+  };
+  window.addEventListener("scroll", () => {
+    if (!trackQueued) { trackQueued = true; requestAnimationFrame(updateTrack); }
+  }, { passive: true });
+  window.addEventListener("resize", updateTrack);
+  updateTrack();
+}
+
+// ---------------------------------------------------------------------------
 // Contact form: posts to formEndpoint if set, otherwise opens an email draft
 // ---------------------------------------------------------------------------
 const form = document.getElementById("contactForm");
