@@ -96,55 +96,60 @@ svg { fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round
 .profile-card {
   position: relative;
   background: var(--card); color: var(--card-ink);
-  border-radius: var(--radius);
-  padding: 1.875rem 1.875rem 2rem;
+  border-radius: 20px;
+  padding: .75rem .75rem 1.5rem;
   text-align: center;
 }
-.arc { position: absolute; width: 200px; height: 120px; pointer-events: none; overflow: visible; z-index: 0; }
-.arc-top { z-index: 2; }
-.profile-card > :not(.arc) { position: relative; z-index: 1; }
-.arc path { stroke: var(--orange); stroke-width: 2.5; stroke-dasharray: 7 7; fill: none; animation: dash 18s linear infinite; }
-.arc-top { left: 0; top: 0; }
-.arc-bottom { left: -1.5rem; top: 24rem; }
-@keyframes dash { to { stroke-dashoffset: -280; } }
 
 .profile-photo {
   position: relative;
-  border-radius: var(--radius);
+  aspect-ratio: 4 / 4.4;
+  border-radius: 14px;
   overflow: hidden;
-  aspect-ratio: 240 / 284;
-  margin: 0 auto 1.5rem;
-  max-width: 240px;
-  background: var(--orange);
+  background: #1c1a19;
+  margin-bottom: 1.5rem;
 }
-.profile-photo img { width: 100%; height: 100%; object-fit: cover; }
-.profile-name { font-size: 2.25rem; font-weight: 700; letter-spacing: -.04em; line-height: 1.1; }
+.profile-photo img {
+  width: 100%; height: 100%; object-fit: cover; object-position: 50% 20%;
+  filter: grayscale(1) contrast(1.08) brightness(.98);
+  transition: filter .6s var(--ease), transform .8s var(--ease);
+}
+.profile-card:hover .profile-photo img { filter: grayscale(0) contrast(1) brightness(1); transform: scale(1.02); }
+
 .profile-badge {
-  display: inline-grid; place-items: center;
-  width: 2.5rem; height: 2.5rem; margin: 1.25rem 0;
-  border-radius: 50%; background: var(--orange); color: #fff;
+  position: absolute; top: .75rem; right: .75rem;
+  width: 2.5rem; height: 2.5rem; border-radius: 50%;
+  display: grid; place-items: center;
+  background: var(--orange); color: #fff;
 }
-.profile-badge svg { width: 22px; height: 22px; stroke: none; }
-.profile-role { font-size: 1.125rem; line-height: 1.4; color: var(--card-muted); }
+.profile-badge svg { width: 22px; height: 22px; stroke-width: 2; }
+.profile-badge .dot { fill: currentColor; stroke: none; }
+
 .status {
-  display: inline-flex; align-items: center; gap: .45rem;
-  margin-top: .75rem; padding: .3rem .8rem; border-radius: 999px;
-  background: #f1efee; color: var(--card-ink);
-  font-size: .875rem; font-weight: 500;
+  position: absolute; left: .75rem; bottom: .75rem;
+  display: inline-flex; align-items: center; gap: .5rem;
+  padding: .4rem .8rem .4rem .7rem; border-radius: 999px;
+  background: rgba(255,255,255,.94); color: var(--card-ink);
+  font-size: .8125rem; font-weight: 600;
 }
 .pulse { width: 8px; height: 8px; border-radius: 50%; background: #22b04b; position: relative; }
 .pulse::after { content: ""; position: absolute; inset: 0; border-radius: 50%; background: #22b04b; animation: ping 2s var(--ease) infinite; }
 @keyframes ping { from { transform: scale(1); opacity: .7; } to { transform: scale(2.8); opacity: 0; } }
 
-.profile-social { display: flex; justify-content: center; gap: 1rem; margin-top: 1.75rem; }
+.profile-name { font-size: 2rem; font-weight: 700; letter-spacing: -.035em; line-height: 1.1; padding: 0 .75rem; }
+.profile-role { display: grid; gap: .1rem; margin-top: .6rem; padding: 0 .75rem; font-size: 1rem; line-height: 1.4; color: var(--card-muted); }
+.profile-role strong { color: var(--card-ink); font-weight: 600; }
+
+.profile-social { display: grid; grid-template-columns: repeat(4, 1fr); gap: .5rem; margin-top: 1.5rem; padding: 0 .75rem; }
 .profile-social a {
-  width: 2.75rem; height: 2.75rem; border-radius: 10px;
-  display: grid; place-items: center; color: var(--orange);
-  transition: background-color .2s ease, transform .16s var(--ease);
+  height: 2.75rem; border-radius: 10px;
+  display: grid; place-items: center;
+  background: #f4f2f1; color: var(--card-ink);
+  transition: background-color .2s ease, color .2s ease, transform .16s var(--ease);
 }
-.profile-social a svg { width: 24px; height: 24px; }
-.profile-social a:active { transform: scale(.92); }
-@media (hover: hover) { .profile-social a:hover { background: #fdebe3; } }
+.profile-social a svg { width: 20px; height: 20px; }
+.profile-social a:active { transform: scale(.94); }
+@media (hover: hover) { .profile-social a:hover { background: var(--orange); color: #fff; } }
 
 /* ---------- content blocks ---------- */
 .content { min-width: 0; }
@@ -394,15 +399,12 @@ svg { fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round
   .demo-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .page { grid-template-columns: 1fr; padding-top: 6.5rem; gap: 3.5rem; }
   .profile { position: static; max-width: 26rem; width: 100%; margin: 0 auto; }
-  .arc-bottom { top: auto; bottom: 7rem; }
 }
 
 @media (max-width: 600px) {
   .dock { top: .75rem; gap: .1rem; padding: .3rem; }
   .dock a { width: 2.5rem; height: 2.5rem; }
   .dock a::after { display: none; }
-  .profile-card { padding: 1.5rem 1.25rem 1.75rem; }
-  .profile-name { font-size: 2rem; }
   .duo { font-size: 9.4vw; }
   .hero .duo { font-size: 17vw; }
   .demo-grid { grid-template-columns: 1fr 1fr; gap: 1rem .75rem; }
