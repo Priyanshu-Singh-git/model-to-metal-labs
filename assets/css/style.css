@@ -74,7 +74,7 @@ svg { fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round
   position: relative; z-index: 1;
   max-width: var(--page);
   margin: 0 auto;
-  padding: 0 var(--gutter) 2rem;
+  padding: clamp(1.5rem, 4vw, 3.5rem) var(--gutter) 2rem;
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 340px);
   grid-template-areas: "name name" "nav nav" "content profile";
@@ -89,7 +89,7 @@ svg { fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round
 /* ---------- the name across the top ---------- */
 .bigname {
   min-width: 0;
-  margin: -.06em 0 0;           /* sits against the top edge, like a masthead */
+  margin: 0;
   font-family: var(--display);
   font-weight: 700;
   font-size: 16vw;
@@ -101,7 +101,7 @@ svg { fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round
 }
 .bigname .word { display: inline-block; }
 .bigname .ch { display: inline-block; }
-.bigname .clip { display: inline-block; overflow: hidden; vertical-align: top; }
+.bigname .clip { display: inline-block; overflow: hidden; vertical-align: top; padding: .04em 0 .1em; margin-bottom: -.1em; }
 .js .bigname .ch { transform: translateY(105%); animation: rise .9s var(--ease) forwards; animation-delay: calc(var(--i) * 35ms + .1s); }
 @keyframes rise { to { transform: none; } }
 
