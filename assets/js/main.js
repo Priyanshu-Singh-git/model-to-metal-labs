@@ -16,6 +16,24 @@ root.classList.add("js");
 const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 // ---------------------------------------------------------------------------
+// Email: on computers, open a Gmail compose window with the address already in
+// "To" (Cc and Bcc are in that window); phones keep mailto:, which opens the
+// Gmail app or the phone's own mail app
+// ---------------------------------------------------------------------------
+const onComputer = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+const composeUrl = ({ subject = "Project enquiry", body = "" } = {}) => {
+  if (!onComputer) {
+    return `mailto:${CONFIG.contactEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  }
+  const q = new URLSearchParams({ view: "cm", fs: "1", to: CONFIG.contactEmail, cc: "", bcc: "", su: subject, body });
+  return `https://mail.google.com/mail/?${q}`;
+};
+document.querySelectorAll("a[data-compose]").forEach((a) => {
+  a.href = composeUrl();
+  if (onComputer) { a.target = "_blank"; a.rel = "noopener"; }
+});
+
+// ---------------------------------------------------------------------------
 // Headings set "&" in a serif italic, the way the light theme's type does
 // ---------------------------------------------------------------------------
 document.querySelectorAll(".duo span, h3, .sub-title").forEach((el) => {
@@ -393,10 +411,9 @@ form.addEventListener("submit", async (e) => {
   const data = Object.fromEntries(new FormData(form));
 
   if (!CONFIG.formEndpoint) {
-    const subject = encodeURIComponent(`Project enquiry: ${data.type}`);
-    const body = encodeURIComponent(`${data.message}\n\n— ${data.name} (${data.email})`);
-    window.location.href = `mailto:${CONFIG.contactEmail}?subject=${subject}&body=${body}`;
-    setNote("Opening your email app with the message ready to send.", "ok");
+    const url = composeUrl({ subject: `Project enquiry: ${data.type}`, body: `${data.message}\n\n— ${data.name} (${data.email})` });
+    if (onComputer) window.open(url, "_blank", "noopener"); else window.location.href = url;
+    setNote(onComputer ? "Opening Gmail with your message ready to send." : "Opening your email app with the message ready to send.", "ok");
     return;
   }
 
