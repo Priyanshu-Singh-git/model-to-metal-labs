@@ -129,7 +129,7 @@ svg { fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round
 .bigname .word { display: inline-block; }
 .bigname .ch { display: inline-block; }
 .js .bigname .ch { transform: translateY(105%); opacity: 0; animation: rise .9s var(--ease) forwards; animation-delay: calc(var(--i) * 35ms + .1s); }
-.bigname .clip { display: inline-block; overflow: hidden; vertical-align: top; padding: .04em 0 .26em; margin-bottom: -.2em; }  /* room for descenders */
+.bigname .clip { display: inline-block; overflow: hidden; vertical-align: top; padding: .04em .12em .26em; margin: 0 -.12em -.2em; }  /* room for overhanging letter edges and descenders */
 @keyframes rise { to { transform: none; opacity: 1; } }
 
 /* ---------- profile card ---------- */

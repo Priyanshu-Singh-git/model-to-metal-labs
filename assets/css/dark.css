@@ -140,8 +140,8 @@ html[data-theme="dark"] .bigname {
 html[data-theme="dark"] .bigname .word { display: inline-block; }
 html[data-theme="dark"] .bigname .ch { display: inline-block; }
 html[data-theme="dark"].js .bigname .ch { transform: translateY(105%); opacity: 0; animation: rise-dark .9s var(--ease) forwards; animation-delay: calc(var(--i) * 35ms + .1s); }
-html[data-theme="dark"] .bigname .clip { display: inline-block; overflow: hidden; vertical-align: top; padding: .04em 0 .26em; margin-bottom: -.2em; }
-/* room for descenders */
+html[data-theme="dark"] .bigname .clip { display: inline-block; overflow: hidden; vertical-align: top; padding: .04em .12em .26em; margin: 0 -.12em -.2em; }
+/* room for overhanging letter edges and descenders */
 @keyframes rise-dark { to { transform: none; opacity: 1; } }
 /* ---------- profile card ---------- */
 html[data-theme="dark"] .profile { position: sticky; top: 8.5rem; }

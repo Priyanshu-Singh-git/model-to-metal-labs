@@ -114,7 +114,8 @@ html[data-theme="light"] .bigname {
 }
 html[data-theme="light"] .bigname .word { display: inline-block; }
 html[data-theme="light"] .bigname .ch { display: inline-block; }
-html[data-theme="light"] .bigname .clip { display: inline-block; overflow: hidden; vertical-align: top; padding: .04em 0 .1em; margin-bottom: -.1em; }
+html[data-theme="light"] .bigname .clip { display: inline-block; overflow: hidden; vertical-align: top; padding: .04em .06em .1em; margin: 0 -.06em -.1em; }
+/* room for overhanging letter edges and descenders */
 html[data-theme="light"].js .bigname .ch { transform: translateY(105%); animation: rise-light .9s var(--ease) forwards; animation-delay: calc(var(--i) * 35ms + .1s); }
 @keyframes rise-light { to { transform: none; } }
 /* ---------- nav row ---------- */
