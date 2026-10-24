@@ -243,7 +243,7 @@ html[data-theme="dark"] .stars svg { width: 15px; height: 15px; fill: currentCol
 }
 html[data-theme="dark"] .demos { background: var(--surface); border-radius: var(--radius); padding: 1.25rem; }
 html[data-theme="dark"] .demos-title { font-size: .9375rem; font-weight: 500; color: var(--muted); margin-bottom: 1rem; }
-html[data-theme="dark"] .demo-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: .75rem; }
+html[data-theme="dark"] .demo-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .75rem; }
 html[data-theme="dark"] .demo { display: flex; flex-direction: column; gap: .15rem; padding: .5rem; margin: -.5rem; border-radius: 12px; transition: background-color .2s ease; }
 html[data-theme="dark"] .demo-thumb { display: block; aspect-ratio: 4 / 3; border-radius: 10px; overflow: hidden; background: var(--surface-2); margin-bottom: .6rem; }
 html[data-theme="dark"] .demo-thumb img { width: 100%; height: 100%; object-fit: cover; transition: transform .5s var(--ease); }
@@ -444,7 +444,7 @@ html[data-theme="dark"].js .reveal { opacity: 0; transform: translateY(20px); tr
 html[data-theme="dark"].js .reveal.in { opacity: 1; transform: none; }
 /* ---------- responsive ---------- */
 @media (max-width: 960px) {
-  html[data-theme="dark"] .demo-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  html[data-theme="dark"] .demo-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   html[data-theme="dark"] .page { grid-template-columns: 1fr; padding-top: 6.5rem; gap: 3.5rem; }
   html[data-theme="dark"] .profile { position: static; max-width: 26rem; width: 100%; margin: 0 auto; }
 }
@@ -465,7 +465,7 @@ html[data-theme="dark"].js .reveal.in { opacity: 1; transform: none; }
   html[data-theme="dark"] .dock a::after { display: none; }
   html[data-theme="dark"] .duo { font-size: 9.4vw; }
   html[data-theme="dark"] .hero .duo { font-size: 17vw; }
-  html[data-theme="dark"] .demo-grid { grid-template-columns: 1fr 1fr; gap: 1rem .75rem; }
+  html[data-theme="dark"] .demo-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem .6rem; }
   html[data-theme="dark"] .hero-actions { flex-direction: column; align-items: flex-start; }
   html[data-theme="dark"] .btn-primary { width: 100%; justify-content: center; }
   html[data-theme="dark"] .case-split,

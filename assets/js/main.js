@@ -397,6 +397,18 @@ const setNote = (text, kind) => {
   note.className = "form-note field-wide" + (kind ? " " + kind : "");
 };
 
+// "None of these" reveals a box to type the project type in
+const typeSelect = document.getElementById("f-type");
+const typeOtherField = document.getElementById("typeOtherField");
+const typeOther = document.getElementById("f-type-other");
+typeSelect.addEventListener("change", () => {
+  const other = typeSelect.value === "other";
+  typeOtherField.hidden = !other;
+  typeOther.required = other;
+  if (other) typeOther.focus();
+  else typeOtherField.classList.remove("invalid");
+});
+
 form.addEventListener("submit", async (e) => {
   e.preventDefault();
 
@@ -409,6 +421,8 @@ form.addEventListener("submit", async (e) => {
   if (!valid) { setNote("Please fill in your name, a valid email, a project type and a short message.", "err"); return; }
 
   const data = Object.fromEntries(new FormData(form));
+  if (data.type === "other") data.type = (data.type_other || "").trim();
+  delete data.type_other;
 
   if (!CONFIG.formEndpoint) {
     const url = composeUrl({ subject: `Project enquiry: ${data.type}`, body: `${data.message}\n\n— ${data.name} (${data.email})` });

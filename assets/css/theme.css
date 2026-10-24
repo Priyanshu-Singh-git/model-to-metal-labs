@@ -153,3 +153,6 @@ html.theme-fade, html.theme-fade * {
 @media (prefers-reduced-motion: reduce) {
   ::view-transition-group(*), ::view-transition-old(*), ::view-transition-new(*) { animation: none !important; }
 }
+
+/* the "your project type" box stays hidden until "None of these" is picked */
+.contact-form .field[hidden] { display: none; }

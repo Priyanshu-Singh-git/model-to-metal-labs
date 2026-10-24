@@ -26,9 +26,9 @@
       document.documentElement.setAttribute("data-theme", t === "dark" ? "dark" : "light");
     })();
   </script>
-  <link rel="stylesheet" href="assets/css/light.css?v=20261023t5" />
-  <link rel="stylesheet" href="assets/css/dark.css?v=20261023t5" />
-  <link rel="stylesheet" href="assets/css/theme.css?v=20261023t5" />
+  <link rel="stylesheet" href="assets/css/light.css?v=20261024t7" />
+  <link rel="stylesheet" href="assets/css/dark.css?v=20261024t7" />
+  <link rel="stylesheet" href="assets/css/theme.css?v=20261024t7" />
 </head>
 <body>
   <svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol id="star" viewBox="0 0 24 24"><path d="m12 2.8 2.8 5.8 6.3.9-4.6 4.4 1.1 6.3L12 17.2l-5.6 3 1.1-6.3L2.9 9.5l6.3-.9z"/></symbol></svg>
@@ -135,7 +135,7 @@
         </div>
 
         <div class="demos reveal">
-          <p class="demos-title">Four products you can try right now, in your browser</p>
+          <p class="demos-title">Three products you can try right now, in your browser</p>
           <ul class="demo-grid">
             <li>
               <a href="https://priyanshu-singh-git.github.io/defectscope/" target="_blank" rel="noopener" class="demo">
@@ -156,13 +156,6 @@
                 <span class="demo-thumb top"><img src="assets/img/work/pixelforge.webp" alt="" loading="lazy" decoding="async" /></span>
                 <span class="demo-name">PixelForge</span>
                 <span class="demo-what">Upscales game textures 4×</span>
-              </a>
-            </li>
-            <li>
-              <a href="https://priyanshu-singh-git.github.io/mapwise/" target="_blank" rel="noopener" class="demo">
-                <span class="demo-thumb"><img src="assets/img/work/mapwise.webp" alt="" loading="lazy" decoding="async" /></span>
-                <span class="demo-name">MapWise</span>
-                <span class="demo-what">Maps land from satellite images</span>
               </a>
             </li>
           </ul>
@@ -273,16 +266,6 @@
         <p class="lead reveal">Built in-house. The demos run in your browser.</p>
 
         <div class="projects">
-          <article class="project reveal">
-            <figure class="project-thumb"><picture><source srcset="assets/img/work/driftmind.webp" type="image/webp" /><img src="assets/img/work/driftmind.jpg" alt="DriftMind agent playing a first-person shooter from raw pixels: 18 kills at full health" loading="lazy" decoding="async" /></picture></figure>
-            <div class="project-body">
-              <p class="project-kind">Autonomous agents · Automated game testing · Private beta</p>
-              <h3>DriftMind</h3>
-              <p>An AI player that learns any game from the screen alone, then playtests every new build overnight for bugs and exploits.</p>
-              <p class="figures"><b>100%</b> success in 3D navigation <span aria-hidden="true">·</span> <b>18+</b> targets per run in a shooter <span aria-hidden="true">·</span> <b>43%</b> never-seen levels cleared</p>
-              <p class="project-links"><span class="private">Private build · demo on request</span></p>
-            </div>
-          </article>
 
           <article class="project reveal">
             <figure class="project-thumb"><picture><source srcset="assets/img/work/defectscope.webp" type="image/webp" /><img src="assets/img/work/defectscope.jpg" alt="Parts with defects and the heatmaps DefectScope uses to pinpoint them" loading="lazy" decoding="async" /></picture></figure>
@@ -322,20 +305,6 @@
               <p class="project-links">
                 <a href="https://priyanshu-singh-git.github.io/pixelforge/" target="_blank" rel="noopener" class="primary">Live demo ↗</a>
                 <a href="https://github.com/Priyanshu-Singh-git/pixelforge" target="_blank" rel="noopener">Code ↗</a>
-              </p>
-            </div>
-          </article>
-
-          <article class="project reveal">
-            <figure class="project-thumb"><picture><source srcset="assets/img/work/mapwise.webp" type="image/webp" /><img src="assets/img/work/mapwise.jpg" alt="Satellite image beside the land-cover map MapWise produces from it" loading="lazy" decoding="async" /></picture></figure>
-            <div class="project-body">
-              <p class="project-kind">Satellite intelligence</p>
-              <h3>MapWise</h3>
-              <p>Turns satellite images into land-use maps for agriculture, insurance and climate work, right in the browser.</p>
-              <p class="figures"><b>6</b> land types mapped <span aria-hidden="true">·</span> <b>85.9%</b> pixel accuracy <span aria-hidden="true">·</span> <b>0</b> server uploads</p>
-              <p class="project-links">
-                <a href="https://priyanshu-singh-git.github.io/mapwise/" target="_blank" rel="noopener" class="primary">Live demo ↗</a>
-                <a href="https://github.com/Priyanshu-Singh-git/mapwise" target="_blank" rel="noopener">Code ↗</a>
               </p>
             </div>
           </article>
@@ -468,8 +437,12 @@
                 <option>Feasibility study or technical audit</option>
                 <option>Ongoing AI engineering support</option>
               </optgroup>
-              <option>Something else</option>
+              <option value="other">None of these: I&rsquo;ll describe it</option>
             </select>
+          </div>
+          <div class="field field-wide" id="typeOtherField" hidden>
+            <label for="f-type-other">Your project type</label>
+            <input id="f-type-other" name="type_other" type="text" maxlength="80" placeholder="e.g. Drone navigation, medical imaging, recommendation engine" />
           </div>
           <div class="field field-wide">
             <label for="f-msg">What are you building?</label>
@@ -494,6 +467,6 @@
     </main>
   </div>
 
-  <script src="assets/js/main.js?v=20261023t5"></script>
+  <script src="assets/js/main.js?v=20261024t7"></script>
 </body>
 </html>
