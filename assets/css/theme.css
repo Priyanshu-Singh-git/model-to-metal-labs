@@ -156,3 +156,35 @@ html.theme-fade, html.theme-fade * {
 
 /* the "your project type" box stays hidden until "None of these" is picked */
 .contact-form .field[hidden] { display: none; }
+
+/* ==========================================================================
+   Upwork proof panel under the hero (sits in the .demos frame of each theme)
+   ========================================================================== */
+.upwork-head { display: inline-flex; gap: .35rem; }
+html[data-theme] .upwork-stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; margin: .5rem 0 1.5rem; }
+.upwork-stats div { display: flex; flex-direction: column; gap: .35rem; }
+.upwork-stats dt { display: flex; align-items: center; gap: .5rem; line-height: 1; }
+.upwork-stats dd { margin: 0; font-size: .9375rem; }
+.upwork-stats .stars svg { width: 14px; height: 14px; }
+.upwork-more { display: inline-flex; gap: .35rem; font-size: .9375rem; font-weight: 500; }
+
+html[data-theme="light"] .upwork-stats dt { font-family: var(--display); font-weight: 600; font-size: clamp(2.4rem, 4.2vw, 3.4rem); color: var(--coral); }
+html[data-theme="light"] .upwork-stats dd { color: var(--ink-soft); }
+html[data-theme="light"] .upwork-stats div + div { border-left: 1.5px solid var(--line-faint); padding-left: 1rem; }
+html[data-theme="light"] .upwork-head, html[data-theme="light"] .upwork-more { color: var(--ink); border-bottom: 1.5px solid var(--line); }
+
+html[data-theme="dark"] .upwork-stats dt { font-weight: 700; font-size: clamp(2rem, 3.6vw, 2.9rem); letter-spacing: -.02em; color: var(--text); }
+html[data-theme="dark"] .upwork-stats dd { color: var(--muted); }
+html[data-theme="dark"] .upwork-stats div + div { border-left: 1px solid var(--surface-2); padding-left: 1rem; }
+html[data-theme="dark"] .upwork-head { color: var(--muted); }
+html[data-theme="dark"] .upwork-more { color: var(--accent); }
+
+@media (hover: hover) {
+  .upwork-head:hover, .upwork-more:hover { text-decoration: underline; text-underline-offset: 3px; }
+}
+@media (max-width: 600px) {
+  .upwork-stats { grid-template-columns: 1fr; gap: .9rem; }
+  html[data-theme="light"] .upwork-stats div + div,
+  html[data-theme="dark"] .upwork-stats div + div { border-left: 0; padding-left: 0; }
+  .upwork-stats div { flex-direction: row; align-items: baseline; gap: .75rem; }
+}

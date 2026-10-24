@@ -26,9 +26,9 @@
       document.documentElement.setAttribute("data-theme", t === "dark" ? "dark" : "light");
     })();
   </script>
-  <link rel="stylesheet" href="assets/css/light.css?v=20261024t7" />
-  <link rel="stylesheet" href="assets/css/dark.css?v=20261024t7" />
-  <link rel="stylesheet" href="assets/css/theme.css?v=20261024t7" />
+  <link rel="stylesheet" href="assets/css/light.css?v=20261024t9" />
+  <link rel="stylesheet" href="assets/css/dark.css?v=20261024t9" />
+  <link rel="stylesheet" href="assets/css/theme.css?v=20261024t9" />
 </head>
 <body>
   <svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol id="star" viewBox="0 0 24 24"><path d="m12 2.8 2.8 5.8 6.3.9-4.6 4.4 1.1 6.3L12 17.2l-5.6 3 1.1-6.3L2.9 9.5l6.3-.9z"/></symbol></svg>
@@ -128,37 +128,16 @@
 
         <div class="hero-actions reveal">
           <a href="#contact" class="pill pill-solid btn-primary">Start a project <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></a>
-          <a href="https://www.upwork.com/freelancers/~0172854895b0a49f5f" target="_blank" rel="noopener" class="proof">
-            <span class="stars" aria-hidden="true"><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg></span>
-            <span><strong>5.0 on every reviewed job</strong> · 100% Job Success on Upwork</span>
-          </a>
         </div>
 
-        <div class="demos reveal">
-          <p class="demos-title">Three products you can try right now, in your browser</p>
-          <ul class="demo-grid">
-            <li>
-              <a href="https://priyanshu-singh-git.github.io/defectscope/" target="_blank" rel="noopener" class="demo">
-                <span class="demo-thumb"><img src="assets/img/work/defectscope.webp" alt="" loading="lazy" decoding="async" /></span>
-                <span class="demo-name">DefectScope</span>
-                <span class="demo-what">Finds defects on parts</span>
-              </a>
-            </li>
-            <li>
-              <a href="https://priyanshu-singh-git.github.io/voiceshield/" target="_blank" rel="noopener" class="demo">
-                <span class="demo-thumb"><img src="assets/img/work/voiceshield.webp" alt="" loading="lazy" decoding="async" /></span>
-                <span class="demo-name">VoiceShield</span>
-                <span class="demo-what">Spots cloned voices</span>
-              </a>
-            </li>
-            <li>
-              <a href="https://priyanshu-singh-git.github.io/pixelforge/" target="_blank" rel="noopener" class="demo">
-                <span class="demo-thumb top"><img src="assets/img/work/pixelforge.webp" alt="" loading="lazy" decoding="async" /></span>
-                <span class="demo-name">PixelForge</span>
-                <span class="demo-what">Upscales game textures 4×</span>
-              </a>
-            </li>
-          </ul>
+        <div class="demos upwork reveal">
+          <a class="demos-title upwork-head" href="https://www.upwork.com/freelancers/~0172854895b0a49f5f" target="_blank" rel="noopener">Verified on Upwork <span aria-hidden="true">&#8599;</span></a>
+          <dl class="upwork-stats">
+            <div><dt>100%</dt><dd>Job Success</dd></div>
+            <div><dt>5.0 <span class="stars" aria-label="five stars"><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg></span></dt><dd>on every reviewed job</dd></div>
+            <div><dt>4</dt><dd>client engagements</dd></div>
+          </dl>
+          <a class="upwork-more" href="#record">See the client work <span aria-hidden="true">&#8595;</span></a>
         </div>
       </section>
 
@@ -266,20 +245,17 @@
         <p class="lead reveal">Built in-house. The demos run in your browser.</p>
 
         <div class="projects">
-
           <article class="project reveal">
-            <figure class="project-thumb"><picture><source srcset="assets/img/work/defectscope.webp" type="image/webp" /><img src="assets/img/work/defectscope.jpg" alt="Parts with defects and the heatmaps DefectScope uses to pinpoint them" loading="lazy" decoding="async" /></picture></figure>
+            <figure class="project-thumb"><picture><source srcset="assets/img/work/driftmind.webp" type="image/webp" /><img src="assets/img/work/driftmind.jpg" alt="DriftMind agent playing a first-person shooter from raw pixels: 18 kills at full health" loading="lazy" decoding="async" /></picture></figure>
             <div class="project-body">
-              <p class="project-kind">AI quality inspection</p>
-              <h3>DefectScope</h3>
-              <p>Spots scratches and dents on production lines, trained only on photos of good parts. Outperforms Intel's open-source reference.</p>
-              <p class="figures"><b>94%</b> defects caught <span aria-hidden="true">·</span> <b>0</b> defect photos needed <span aria-hidden="true">·</span> <b>50 ms</b> per part, no GPU</p>
-              <p class="project-links">
-                <a href="https://priyanshu-singh-git.github.io/defectscope/" target="_blank" rel="noopener" class="primary">Live demo ↗</a>
-                <a href="https://github.com/Priyanshu-Singh-git/defectscope" target="_blank" rel="noopener">Code ↗</a>
-              </p>
+              <p class="project-kind">Autonomous agents Â· Automated game testing Â· Private beta</p>
+              <h3>DriftMind</h3>
+              <p>An AI player that learns any game from the screen alone, then playtests every new build overnight for bugs and exploits.</p>
+              <p class="figures"><b>100%</b> success in 3D navigation <span aria-hidden="true">Â·</span> <b>18+</b> targets per run in a shooter <span aria-hidden="true">Â·</span> <b>43%</b> never-seen levels cleared</p>
+              <p class="project-links"><span class="private">Private build Â· demo on request</span></p>
             </div>
           </article>
+
 
           <article class="project reveal">
             <figure class="project-thumb"><picture><source srcset="assets/img/work/voiceshield.webp" type="image/webp" /><img src="assets/img/work/voiceshield.jpg" alt="3D rendering of a voice signal analysed by VoiceShield" loading="lazy" decoding="async" /></picture></figure>
@@ -467,6 +443,6 @@
     </main>
   </div>
 
-  <script src="assets/js/main.js?v=20261024t7"></script>
+  <script src="assets/js/main.js?v=20261024t9"></script>
 </body>
 </html>
